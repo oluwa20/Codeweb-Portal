@@ -1,0 +1,63 @@
+﻿@model SMS.ViewModels.RevenueViewModel
+
+@{
+    ViewData["Title"] = "Monthly Revenue";
+}
+
+<h1>Total Revenue Generated from @Model.StartMonth.ToString("MMMM yyyy") to @Model.EndMonth.ToString("MMMM yyyy")</h1>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PepperShop</a> *@
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Create Student </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="GetStudents">Students </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MonthlyPayments">Payment History </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MonthlyRevenue">Revenue </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+<form method="post" asp-action="MonthlyRevenue">
+    <div class="form-group">
+        <label for="startMonth">Start Date:</label>
+        <input type="date" class="form-control" id="startMonth" name="startMonth" required />
+    </div>
+
+    <div class="form-group">
+        <label for="endMonth">End Date:</label>
+        <input type="date" class="form-control" id="endMonth" name="endMonth" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Calculate Revenue</button>
+</form>
+
+@if (Model != null)
+{
+    <div class="alert alert-success mt-3">
+        Total Revenue: ₦@Model.TotalRevenue
+    </div>
+}
+else
+{
+    <div class="alert alert-warning mt-3">
+        No revenue found for the specified period.
+    </div>
+}

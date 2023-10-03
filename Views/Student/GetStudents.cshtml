@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SMS.Models.Student>
+
+@{
+    ViewData["Title"] = "GetStudents";
+}
+
+
+<h1>Get Students</h1>
+
+
+<p>
+    <a asp-action="Index">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var student in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => student.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.Address)
+            </td>
+            <td>
+               
+                    <a asp-action="AddPayment" asp-route-studentId="@student.StudentId">Add Payment</a> |
+                    <a asp-action="PaymentHistory" asp-route-studentId="@student.StudentId">Payment History</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

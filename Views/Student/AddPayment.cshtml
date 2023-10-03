@@ -1,0 +1,24 @@
+﻿@model SMS.ViewModels.PaymentViewModel
+
+@{
+    ViewData["Title"] = "Add Payment";
+}
+
+<h1>Add Payment</h1>
+
+<form asp-action="AddPayment">
+    <input type="hidden" asp-for="StudentId" />
+    <div class="form-group">
+        <label asp-for="Amount" class="control-label"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Date" class="control-label"></label>
+        <input asp-for="Date" type="date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Payment" class="btn btn-primary" />
+    </div>
+</form>

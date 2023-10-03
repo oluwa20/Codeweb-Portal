@@ -1,0 +1,29 @@
+﻿@model SMS.ViewModels.PaymentHistoryViewModel
+
+@{
+    ViewData["Title"] = "Payment History";
+}
+
+<h1>Payment History for @Model.StudentName</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date Recorded</th>
+            <th>Date Paid</th>
+            <th>Amount</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model.Payments)
+        {
+            <tr>
+                <td>@payment.PaymentDate.ToShortDateString()</td>
+                <td>@(payment.Date.HasValue ? payment.Date.Value.ToString("yyyy-MM-dd") : "N/A")</td>
+                @* <td>@payment.Amount.ToString("#")</td> *@
+                <td>@payment.Amount.ToString("N0") ₦ </td>
+            </tr>
+        }
+    </tbody>
+</table>
