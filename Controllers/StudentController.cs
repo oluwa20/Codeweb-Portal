@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SMS.Data;
+using SMS.Migrations;
 using SMS.Models;
 using SMS.ViewModels;
 
@@ -34,12 +35,7 @@ namespace SMS.Controllers
             await _Context.SaveChangesAsync();
             return RedirectToAction("");
         }
-        /* [HttpGet]
-         public async Task<ActionResult>GetStudents()
-         {
-             var stu = await _Context.Students.ToListAsync();
-             return View(stu);
-         }*/
+       
 
         [HttpGet]
         public async Task<ActionResult> GetStudents(string searchQuery)
@@ -173,6 +169,25 @@ namespace SMS.Controllers
             return View(model);
         }
 
+      
+        public ActionResult Expense()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> Expense (ExpenditureViewModel expense)
+        {
+            Expenditure debit = new Expenditure()
+            {
+                Expenses = expense.Expenses,
+                Amount = expense.Amount,
+                Description =expense.Description,
+                Date = expense.Date
+            };
+            await _Context.Expenditures.AddAsync(debit);
+            await _Context.SaveChangesAsync();
+            return RedirectToAction("");
+        }
 
     }
 }
