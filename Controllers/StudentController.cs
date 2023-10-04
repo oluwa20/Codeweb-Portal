@@ -34,12 +34,30 @@ namespace SMS.Controllers
             await _Context.SaveChangesAsync();
             return RedirectToAction("");
         }
+        /* [HttpGet]
+         public async Task<ActionResult>GetStudents()
+         {
+             var stu = await _Context.Students.ToListAsync();
+             return View(stu);
+         }*/
+
         [HttpGet]
-        public async Task<ActionResult>GetStudents()
+        public async Task<ActionResult> GetStudents(string searchQuery)
         {
-            var stu = await _Context.Students.ToListAsync();
-            return View(stu);
+            IQueryable<Student> students = _Context.Students;
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                // Filter students based on the search query
+                students = students.Where(s => s.StudentName.Contains(searchQuery));
+            }
+
+            var studentList = await students.ToListAsync();
+            return View(studentList);
         }
+
+
+
 
         [HttpGet]
         public async Task<ActionResult> AddPayment (Guid studentId)
@@ -52,7 +70,7 @@ namespace SMS.Controllers
                 return NotFound();
             }
             var paymentViewModel = new PaymentViewModel { StudentId = studentId };
-            /*return View(new PaymentViewModel { StudentId = studentId });*/
+            
 
             return View(paymentViewModel);
         }    
