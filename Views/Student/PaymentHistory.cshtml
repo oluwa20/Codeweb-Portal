@@ -28,7 +28,10 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MonthlyRevenue">Revenue </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Expense">Expenditures</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Expense">Insert Expenditures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="GetExpense">Expenditures</a>
                     </li>
                 </ul>
             </div>
@@ -51,9 +54,15 @@
             <tr>
                 <td>@payment.PaymentDate.ToShortDateString()</td>
                 <td>@(payment.Date.HasValue ? payment.Date.Value.ToString("yyyy-MM-dd") : "N/A")</td>
-                @* <td>@payment.Amount.ToString("#")</td> *@
                 <td>@payment.Amount.ToString( " ₦0") </td>
             </tr>
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2"><strong>Total Amount:</strong></td>
+            <td><strong>@Model.TotalAmount.ToString(" ₦0")</strong></td>
+        </tr>
+    </tfoot>
+
 </table>

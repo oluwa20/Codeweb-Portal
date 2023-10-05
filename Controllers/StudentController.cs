@@ -104,13 +104,13 @@ namespace SMS.Controllers
             {
                 return NotFound();
             }
+            var totalAmount = student.Payments.Sum(p => p.Amount);
             var paymentHistoryViewModel = new PaymentHistoryViewModel
             {
                 StudentId = student.StudentId,
                 StudentName = student.StudentName,
                 Payments = student.Payments,
-
-                
+                TotalAmount = totalAmount
             };
 
             return View(paymentHistoryViewModel);
@@ -137,6 +137,9 @@ namespace SMS.Controllers
                 .Include(p => p.Student)
                 .ToListAsync();
 
+            var totalAmount = payments.Sum(p => p.Amount);
+
+            ViewBag.TotalAmount = totalAmount; 
             return View(payments);
         }
 
@@ -154,22 +157,33 @@ namespace SMS.Controllers
             int endYear = endMonth.Year;
             int endMonthValue = endMonth.Month;
 
-            var totalRevenue = await _Context.Payments
+            var totalPayments = await _Context.Payments
                 .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                         && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
+                            && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
                 .SumAsync(p => p.Amount);
+
+
+            var totalExpenditures = await _Context.Expenditures
+                .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
+                            && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
+                .SumAsync(e => e.Amount);
+
+            
+            var revenue = totalPayments - totalExpenditures;
 
             var model = new RevenueViewModel
             {
                 StartMonth = startMonth,
                 EndMonth = endMonth,
-                TotalRevenue = totalRevenue
+                TotalRevenue = revenue
             };
 
             return View(model);
         }
 
-      
+
+       
+
         public ActionResult Expense()
         {
             return View();
@@ -187,6 +201,16 @@ namespace SMS.Controllers
             await _Context.Expenditures.AddAsync(debit);
             await _Context.SaveChangesAsync();
             return RedirectToAction("");
+        }
+        [HttpGet]
+        public async Task<ActionResult> GetExpense()
+        {
+
+            var appoint = await _Context.Expenditures.ToListAsync();
+            decimal totalAmount = appoint.Sum(e => e.Amount);
+
+            ViewBag.TotalAmount = totalAmount;
+            return View(appoint);
         }
 
     }

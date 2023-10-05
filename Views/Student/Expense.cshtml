@@ -31,7 +31,10 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MonthlyRevenue">Revenue </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Expense">Expenditures</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Expense">Insert Expenditures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="GetExpense">Expenditures</a>
                     </li>
                 </ul>
             </div>
@@ -60,7 +63,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control"  type="date"/>
+                <input asp-for="Date" class="form-control"  type="datetime-local"/>
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
