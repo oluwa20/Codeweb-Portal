@@ -9,11 +9,11 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <header>
+@* <div class="text-center"> *@
+@*     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PepperShop</a> *@
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,8 +42,8 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="register-box">
+    </header> *@
+    @* <div class="register-box">
         <div class="card">
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
@@ -89,6 +89,21 @@
                     <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
-                        <!-- /.col -->
+                    </form> *@
+                <div class="w-8/12 py-10 flex flex-col mx-auto mt-20 items-center rounded-lg shadow-lg lg:w-4/12 lg:mx-auto mt-20">
+                    <h1 class="font-bold text-[15px] text-center py-4 lg:text-[30px] lg:px-12 lg:pt-12 lg:pb-10 lg:py-16">REGISTER A NEW STUDENT</h1>
+                  <form asp-action="Register" method="post">
+                        <input asp-for="StudentName" type="text" placeholder="Name" class="w-9/12 border-b-2  rounded mt-6 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange  lg:focus:ring-orange">
+
+
+                        <input asp-for="Email" type="email" placeholder="Email" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
+
+
+                        <input asp-for="Phone" type="text" placeholder="Phone Number" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
+
+
+                        <input asp-for="Address" type="text" placeholder="Address" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
+
+                    <button type="submit" class=" text-white bg-primary px-6 py-2 font-semibold mt-10 border rounded-lg lg:text-[18px] lg:px-20 lg:font-bold hover:scale-95 hover:shadow-lg ">Register</button>
                     </form>
-                
+                </div>

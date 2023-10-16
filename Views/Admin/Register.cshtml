@@ -4,7 +4,7 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>Register</h1>
+@* <h1>Register</h1>
 
 <h4>Admin</h4>
 <hr />
@@ -50,4 +50,44 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+} *@
+
+<section class="hidden md:block">
+    <div class="flex space-x-6 lg:space-x-24 2xl:space-x-72">
+        <img src="~/pages/images/signup.jpg"
+             class="h-screen w-[450px] object-cover rounded-e-[50px] lg:w-[550px] xl:w-[800px]">
+        <div class="">
+            <div class="flex mt-6 items-center">
+                <img src=""
+                     class="">
+                <p class="text-2xl text-black"></p>
+            </div>
+            <p class="text-2xl mt-24 font-semibold text-black">Register As A New Admin</p>
+            <div asp-validation-summary="ModelOnly" style="color:orangered; font-size:2em;"></div>
+            <form asp-action="Register" method="post">
+            <div class="mt-7 w-[300px] space-y-8 mt-24">
+                <input type="text" class="h-16 w-72 rounded-2xl border-black px-4 border-2
+                     placeholder:text-lg lg:w-80" placeholder="Username">
+                <input type="text" class="h-16 w-72 rounded-2xl border-black px-4 border-2
+                     placeholder:text-lg lg:w-80" placeholder="Email">
+                <input type="password" class="h-16 w-72 rounded-2xl border-black px-4 border-2
+                     placeholder:text-lg lg:w-80" placeholder="Password">
+                <input type="password" class="h-16 w-72 rounded-2xl border-black px-4 border-2
+                     placeholder:text-lg lg:w-80" placeholder="Confirm Password">
+            </div>
+            <div class="flex justify-center mt-24 text-center">
+                <button class="px-4 h-12 bg-primary rounded-full w-60 text-white text-bold text-xl border-primary border-2
+                  ">
+                    Sign Up
+                </button>
+            </div>
+             </form>
+            <div class="flex text-center justify-center mt-24">
+                <p class="text-center text-lg font-semibold">
+                    Already have an account?
+                    <a href="login.html" class="text-md font-light hover:underline">Log In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

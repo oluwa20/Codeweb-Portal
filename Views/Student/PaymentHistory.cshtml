@@ -5,39 +5,7 @@
 }
 
 <h1>Payment History for @Model.StudentName</h1>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PepperShop</a> *@
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Create Student </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="GetStudents">Students </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MonthlyPayments">Payment History </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MonthlyRevenue">Revenue </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Expense">Insert Expenditures</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="GetExpense">Expenditures</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
+
 
 <table class="table">
     <thead>
@@ -66,3 +34,84 @@
     </tfoot>
 
 </table>
+
+<section class="mx-3 py-4 md:py-16 md:px-24">
+
+    <div class=" md:py-36">
+        <h1 class="text-xl font-bold pt-10 mb-2 md:pt-2 md:mb-7 md:text-4xl">Payment History for @Model.StudentName</h1>
+        <nav class=" hidden md:block">
+            <table class="min-w-full bg-white overflow-hidden">
+                <thead class=" text-left text-white">
+                    <tr class="border-b border-secondary text-black text-[12px] md:text-xl">
+                        <th class="px-4 py-2">Date Recorded</th>
+                        <th class="px-4 py-2">Date Paid</th>
+                        <th class="px-4 py-2">Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody class="">
+                    <tr class="border-b border-grey">
+                        <td class="px-4 py-2">19/12/23</td>
+                        <td class="px-4 py-2">N/A</td>
+                        <td class="px-4 py-2">&#8358;400</td>
+                    </tr>
+                    <tr class="border-b border-grey">
+                        <td class="px-4 py-2">19/12/23</td>
+                        <td class="px-4 py-2">N/A</td>
+                        <td class="px-4 py-2">&#8358;400</td>
+                    </tr>
+                    <tr class="border-b border-grey">
+                        <td class="px-4 py-2">19/12/23</td>
+                        <td class="px-4 py-2">N/A</td>
+                        <td class="px-4 py-2">&#8358;400</td>
+                    </tr>
+                    <tr class="border-b border-grey">
+                        <td class="px-4 py-2">19/12/23</td>
+                        <td class="px-4 py-2">N/A</td>
+                        <td class="px-4 py-2">&#8358;400</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </nav>
+
+        <!-- Phone-View -->
+        <nav class="px-2 grid grid-cols-1 gap-4 sm:grid-cols-2 block md:hidden">
+            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                <div class="flex space-x-5 items-center">
+                    <div class="text-lg font-bold">19/09/23</div>
+                    <div class="text-lg ">N/A</div>
+                </div>
+                <div class="text-lg">$400.00</div>
+            </div>
+            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                <div class="flex space-x-5 items-center">
+                    <div class="text-lg font-bold">19/09/23</div>
+                    <div class="text-lg">N/A</div>
+                </div>
+                <div class="text-lg ">$400.00</div>
+            </div>
+            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                <div class="flex space-x-5 items-center">
+                    <div class="text-lg font-bold">19/09/23</div>
+                    <div class="text-lg">N/A</div>
+                </div>
+                <div class="text-lg ">$400.00</div>
+            </div>
+            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                <div class="flex space-x-5 items-center">
+                    <div class="text-lg font-bold">19/09/23</div>
+                    <div class="text-lg">N/A</div>
+                </div>
+                <div class="text-lg ">$400.00</div>
+            </div>
+            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                <div class="flex space-x-5 items-center">
+                    <div class="text-lg font-bold">19/09/23</div>
+                    <div class="text-lg">N/A</div>
+                </div>
+                <div class="text-lg ">$400.00</div>
+            </div>
+        </nav>
+    </div>
+</section>

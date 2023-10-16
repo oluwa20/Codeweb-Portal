@@ -3,66 +3,99 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SMS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SMS.styles.css" asp-append-version="true" />
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="~/assets/plugins/tailwind/tailwind.js"></script>
+    <link rel="stylesheet" href="~/assets/plugins/fonts/font.css" />
+    <link rel="stylesheet" href="~/assets/style/style.css" />
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+
+
+    <!-- Tailwind Customization -->
+    <script>
+        tailwind.config = {
+            theme: {
+                colors: {
+                    primary: "#F67516",
+                    secondary: "#FEB52B",
+                    white: "#FFFFFF",
+                    black: "#000000",
+                    grey: "#E3E3E2",
+                },
+                screens: {
+                    sm: "550px",
+                    // => media (min-width: 550px) { ... }
+
+                    md: "800px",
+                    // => media (min-width: 700px) { ... }
+
+                    lg: "1024px",
+                    // => media (min-width: 1024px) { ... }
+
+                    xl: "1280px",
+                    // => media (min-width: 1280px) { ... }
+
+                    "2xl": "1536px",
+                    // => media (min-width: 1536px) { ... }
+                },
+            },
+        };
+    </script>
+     
+   
 
 
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SMS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index"> </a>
-                        </li>
-                    </ul>
-                   <div style="float:right;">
-                        <div class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="admin" asp-action="register">register</a>
-                        </div>
-                   </div>
+<body class="bg-white px-4 sm:px-0 overflow-x-hidden">
+    <section class="block">
+        <div class="md:flex md:justify-between xl:px-40 md:mt-12 md:px-2">
+            <div class="w-96 h-56 rotate-12 opacity-10 blur-xl absolute bg-[#efd3a0] hidden md:flex"></div>
+            <div class="md:flex md:items-center">
+                <img src="" class="" />
+                <p class="text-2xl text-primary first-letter:text-5xl first-letter:font-semibold py-2 md:py-0">
+                    Codeweb
+                </p>
+            </div>
+            <div class="md:flex md:space-x-10 xl:space-x-10 md:text-center md:items-center md:space-x-6 hidden">
+                <div class="md:h-12 md:w-24 text-primary text-lg md:text-gray md:py-2 ">
+                    <a asp-controller="Home" asp-action="Home">Home</a>
+                </div>
+                <a asp-controller="Home" asp-action="Index" class="text-lg">Login</a>@* 
+                <a asp-controller="Student" asp-action="MonthlyPayments" class="text-lg">Monthly Payment</a>
+                <a asp-controller="Student" asp-action="GetStudents" class="text-lg">Students</a> *@
+                <a href="#" class="text-lg">About</a>
+                <a href="#" class="text-lg">Contact</a>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+        @* <div class="flex flex-col-reverse justify-between items-center md:flex-row gap-10 md:mt-12 xl:px-40 md:px-8"> *@
+            @RenderBody()
+           @*  <div class="md:w-1/2 space-y-6 md:flex md:flex-col">
+                <p class="text-4xl md:text-6xl font-bold">Online</p>
+                <p class="text-4xl md:text-6xl font-bold text-primary">EDUCATION</p>
+                <div class="md:flex">
+                    <p class="text-lg opacity-80">
+                        OUR university has a new opportunity get the specially
+                        "management" online. Save Your time and study with us.
+                    </p>
+                </div>
+                <div class="md:flex ">
+                    <div class="">
+                        <a href="pages/signup.html"
+                           class="px-10 py-2  bg-primary rounded-lg text-white ">Get Started</a>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-   @*  <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - SMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+ *@
+            @* <div class="md:w-1/2 flex flex-col">
+                <img src="~/pages/images/image.jpg" class="" />
+                <div class="flex justify-end">
+                    <div class="w-96 h-56 rotate-12 opacity-25 blur-xl absolute bg-[#efd3a0] hidden md:flex"></div>
+                </div>
+            </div>
         </div>
-    </footer> *@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </section> *@
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -4,16 +4,19 @@ using SMS.Data;
 using SMS.Migrations;
 using SMS.Models;
 using SMS.ViewModels;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 
 namespace SMS.Controllers
 {
     public class StudentController : Controller
     {
         private readonly SmsDbContext _Context;
-
-        public StudentController(SmsDbContext context)
+        private readonly IConverter _pdfConverter;
+        public StudentController(SmsDbContext context, IConverter pdfConverter)
         {
             _Context = context;
+            _pdfConverter = pdfConverter;
         }
 
         public ActionResult Index()
@@ -33,7 +36,7 @@ namespace SMS.Controllers
             };
             await _Context.Students.AddAsync(student);
             await _Context.SaveChangesAsync();
-            return RedirectToAction("");
+            return RedirectToAction("Index");
         }
        
 
@@ -91,6 +94,8 @@ namespace SMS.Controllers
             student.Payments.Add(payment);
 
             await _Context.SaveChangesAsync();
+
+
 
             return RedirectToAction("GetStudents");
         }
