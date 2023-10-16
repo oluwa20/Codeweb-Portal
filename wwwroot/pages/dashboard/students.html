@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+    <script src="../../assets/plugins/tailwind/tailwind.js"></script>
+    <script src="../../assets/style/style.css"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                colors: {
+                    primary: "#F67516", 
+                    secondary: "#FEB52B", 
+                    white: "#FFFFFF",
+                    black: "#000000",
+                    grey: "#E3E3E2",
+                },
+                screens: {
+                    sm: "500px",
+                    md: "800px",
+                    lg: "1024px",
+                    // => @media (min-width: 1024px) { ... }
+
+                    xl: "1280px",
+                    // => @media (min-width: 1280px) { ... }
+
+                    "2xl": "1536px",
+                    // => @media (min-width: 1536px) { ... } 
+                },
+            },
+        }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <section class="sticky top-0" >
+        <nav class="px-3 flex justify-between py-4 shadow-xl md:px-10">
+            <div class="md:space-x-8 md:flex md:items-center">
+                <a href="" class="text-sm md:text-xl font-semibold text-primary">Codeweb Portal</a>
+                <a href="" class="hidden md:block md:after:content-[''] md:after:bg-primary md:after:w-[0%] md:hover:after:w-[50%]
+                    md:after:block md:after:h-[1px] md:after:flex md:after:justify-center md:after:py-[1px] md:after:rounded-lg 
+                    md:after:mx-auto hover:after:transition-all hover:ease-in">
+                    Home
+                </a>
+                <a href="" class="hidden md:block md:after:content-[''] md:after:bg-primary md:after:w-[0%] md:hover:after:w-[50%]
+                    md:after:block md:after:h-[1px] md:after:flex md:after:justify-center md:after:py-[1px] md:after:rounded-lg md:after:mx-auto  
+                    hover:after:transition-all hover:ease-in">Privacy</a>
+            </div>
+            <div class="hidden md:block">
+                <a href="" class="md:after:content-[''] md:after:bg-primary md:after:w-[0%] md:hover:after:w-[50%] md:after:block 
+                    md:after:h-[1px] md:after:flex md:after:justify-center md:after:py-[1px] md:after:rounded-lg md:after:mx-auto  
+                    hover:after:transition-all hover:ease-in">register</a>
+            </div>
+        </nav>
+    </section>
+    
+    <!--  -->
+    <section class="px-3 py-16 md:px-48 md:pt-40 md:pb-20">
+        <nav class="space-y-4">
+            <input type="text" class="w-full border border-grey shadow px-3 py-2 placeholder:text-black focus:outline-none
+             focus:border-secondary md:px-5" placeholder="Search by name...">
+            <button class="bg-primary px-5 py-1 font-semibold text-[17px] rounded-sm text-black">Search</button>
+        </nav>
+    </section>
+
+    <section class="px-3 md:px-12 lg:px-20">
+        <nav class=" hidden md:block">
+            <table class="w-full overflow-hidden">
+                <thead class="">
+                    <tr class="text-[14px] border-b border-secondary text-left ">
+                        <th class="px-4 py-2 text-[15px] tracking-wide">StudentName</th>
+                        <th class="px-4 py-2 text-[15px] tracking-wide">Email</th>
+                        <th class="px-4 py-2 text-[15px] tracking-wide">Phone</th>
+                        <th class="px-4 py-2 text-[15px] tracking-wide">Address</th>
+                        <th class="px-4 py-2 text-[15px] tracking-wide"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-grey">
+                        <td class="px-4 py-2">Oluwasuyi Timilehin</td>
+                        <td class="px-4 py-2">oluwasuyitimilehin@gmail.com</td>
+                        <td class="px-4 py-2">07061403565</td>
+                        <td class="px-4 py-2">Alhaji 88 street, one fold, gberigbe, ikorodu.</td>
+                        <td class="px-4 py-2">
+                            <a href="" class="text-primary hover:underline">Add Payment</a> | <a href="" class="text-primary hover:underline">Payment History</a>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-grey">
+                        <td class="px-4 py-2">Oluwasuyi Boluwatife</td>
+                        <td class="px-4 py-2">oluwasuyiboluwatife@gmail.com</td>
+                        <td class="px-4 py-2">07061403565</td>
+                        <td class="px-4 py-2">Alhaji 88 street, one fold, gberigbe, ikorodu.</td>
+                        <td class="px-4 py-2">
+                            <a href="" class="text-primary hover:underline">Add Payment</a> | <a href="" class="text-primary hover:underline">Payment History</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </nav>
+
+        <nav class="grid grid-cols-1 gap-4 mb-10 sm:grid-cols-2 block md:hidden">
+            <div class="bg-grey p-3 space-y-4 rounded-lg text-sm shadow">
+                <div class="flex space-x-3 items-center">
+                    <div class="rounded-lg px-1 py-1 font-semibold">Oluwasuyi Timilehin</div>
+                    <div>07061403565</div>
+                </div>
+                <div>oluwasuyitimilehin@gmail.com</div>
+                <div>Alhaji 88 street, one fold, gberigbe, ikorodu.</div>
+                <div>
+                    <a href="" class="text-primary hover:underline">Add Payment</a> | <a href="" class="text-primary hover:underline">Payment History</a>
+                </div>
+            </div>
+            <div class="bg-grey p-3 space-y-4 rounded-lg text-sm shadow">
+                <div class="flex space-x-3 items-center">
+                    <div class="rounded-lg px-1 py-1 font-semibold">Oluwasuyi Timilehin</div>
+                    <div>07061403565</div>
+                </div>
+                <div>oluwasuyitimilehin@gmail.com</div>
+                <div>Alhaji 88 street, one fold, gberigbe, ikorodu.</div>
+                <div>
+                    <a href="" class="text-primary hover:underline">Add Payment</a> | <a href="" class="text-primary hover:underline">Payment History</a>
+                </div>
+            </div>
+            <div class="bg-grey p-3 space-y-4 rounded-lg text-sm shadow">
+                <div class="flex space-x-3 items-center">
+                    <div class="rounded-lg px-1 py-1 font-semibold">Oluwasuyi Timilehin</div>
+                    <div>07061403565</div>
+                </div>
+                <div>oluwasuyitimilehin@gmail.com</div>
+                <div>Alhaji 88 street, one fold, gberigbe, ikorodu.</div>
+                <div>
+                    <a href="" class="text-primary hover:underline">Add Payment</a> | <a href="" class="text-primary hover:underline">Payment History</a>
+                </div>
+            </div>
+        </nav>
+    </section>
+</body>
+</html>

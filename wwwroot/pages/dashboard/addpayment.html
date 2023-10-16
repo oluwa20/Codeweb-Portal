@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../assets/plugins/tailwind/tailwind.js"></script>
+<script>
+    tailwind.config = {
+        theme:{
+            colors: {
+                primary: "#F67516",
+                orange: "#FEB52B",
+                white: "#ffffff",
+                black: "#000000",
+                gray: "#E3E3E2",
+
+            },
+            screens: {
+                sm: "500px",
+                md: "800px",
+                lg: "1024px",
+                //=>@media (min-width: 1024px) {...}
+                xl: "1280px",
+                //=>@media (min-width: 1280px) {...}
+                "2xl": "1536px"
+                //=>@media (min-width: 1536px) {...}
+
+            },
+        },
+    }
+</script>
+</head>
+<body>
+    <div class="flex flex-col mx-6 lg:mx-20 lg:w-8/12">
+        <h1 class="my-10 text-2xl font-semibold">Add Payment</h1>
+        <label class="font-semibold">Amount</label>
+        <input type="number" placeholder="0.00" class="border rounded-md my-2 py-1 text-xl px-2 focus:outline-orange focus:ring-2 focus:ring-primary">
+
+        <label class="font-semibold pt-6">Payment Date</label>
+        <input type="date" placeholder="0.00" class="border rounded-md my-2 py-1 text-xl px-2 focus:outline-orange focus:ring-2 focus:ring-primary">
+
+        <button class=" text-white bg-primary px-6 py-2 font-semibold mt-10 border rounded-lg lg:text-[18px] lg:px-20 lg:font-bold hover:scale-95 hover:shadow-lg ">Add payment</button>
+
+    </div>
+    
+</body>
+</html>

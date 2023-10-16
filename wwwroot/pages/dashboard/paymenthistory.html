@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment History</title>
+    <script src="../../assets/plugins/tailwind/tailwind.js"></script>
+    <script src="../../assets/style/style.css"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                colors: {
+                    primary: "#F67516", 
+                    secondary: "#FEB52B", 
+                    white: "#FFFFFF",
+                    black: "#000000",
+                    grey: "#E3E3E2",
+                },
+                screens: {
+                    sm: "500px",
+                    md: "800px",
+                    lg: "1024px",
+                    // => @media (min-width: 1024px) { ... }
+
+                    xl: "1280px",
+                    // => @media (min-width: 1280px) { ... }
+
+                    "2xl": "1536px",
+                    // => @media (min-width: 1536px) { ... } 
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-sora">
+    <section class="sticky top-0" >
+        <nav class="px-3 flex justify-between py-4 shadow-xl md:px-10">
+            <div class="md:space-x-8 md:flex md:items-center">
+                <a href="" class="text-sm md:text-xl font-semibold text-primary">Codeweb Portal</a>
+                <a href="" class="hidden md:block md:after:content-[''] md:after:bg-primary md:after:w-[0%] md:hover:after:w-[50%] md:after:block 
+                    md:after:h-[1px] md:after:flex md:after:justify-center md:after:py-[1px] md:after:rounded-lg md:after:mx-auto  
+                    hover:after:transition-all hover:ease-in">
+                    Home
+                </a>
+                <a href="" class="hidden md:block md:after:content-[''] md:after:bg-primary md:after:w-[0%] md:hover:after:w-[50%] md:after:block 
+                md:after:h-[1px] md:after:flex md:after:justify-center md:after:py-[1px] md:after:rounded-lg md:after:mx-auto  
+                hover:after:transition-all hover:ease-in">Privacy</a>
+            </div>
+            <div class="hidden md:block">
+                <a href="" class="md:after:content-[''] md:after:bg-primary md:after:w-[0%] md:hover:after:w-[50%] md:after:block 
+                md:after:h-[1px] md:after:flex md:after:justify-center md:after:py-[1px] md:after:rounded-lg md:after:mx-auto  
+                hover:after:transition-all hover:ease-in">register</a>
+            </div>
+        </nav>
+    </section>
+    
+    <section class="mx-3 py-4 md:py-16 md:px-24">
+
+        <div class=" md:py-36">
+            <h1 class="text-xl font-bold pt-10 mb-2 md:pt-2 md:mb-7 md:text-4xl">Payment History</h1>
+            <nav class=" hidden md:block">
+                <table class="min-w-full bg-white overflow-hidden">
+                    <thead class=" text-left text-white">
+                        <tr class="border-b border-secondary text-black text-[12px] md:text-xl">
+                            <th class="px-4 py-2">Date Recorded</th>
+                            <th class="px-4 py-2">Date Paid</th>
+                            <th class="px-4 py-2">Amount</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="">
+                        <tr class="border-b border-grey">
+                            <td class="px-4 py-2">19/12/23</td>
+                            <td class="px-4 py-2">N/A</td>
+                            <td class="px-4 py-2">&#8358;400</td>
+                        </tr>
+                        <tr class="border-b border-grey">
+                            <td class="px-4 py-2">19/12/23</td>
+                            <td class="px-4 py-2">N/A</td>
+                            <td class="px-4 py-2">&#8358;400</td>
+                        </tr>
+                        <tr class="border-b border-grey">
+                            <td class="px-4 py-2">19/12/23</td>
+                            <td class="px-4 py-2">N/A</td>
+                            <td class="px-4 py-2">&#8358;400</td>
+                        </tr>
+                        <tr class="border-b border-grey">
+                            <td class="px-4 py-2">19/12/23</td>
+                            <td class="px-4 py-2">N/A</td>
+                            <td class="px-4 py-2">&#8358;400</td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </nav>
+
+            <!-- Phone-View -->
+            <nav class="px-2 grid grid-cols-1 gap-4 sm:grid-cols-2 block md:hidden">
+                <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                    <div class="flex space-x-5 items-center">
+                        <div class="text-lg font-bold">19/09/23</div>
+                        <div class="text-lg ">N/A</div>
+                    </div>
+                    <div class="text-lg">$400.00</div>
+                </div>
+                <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                    <div class="flex space-x-5 items-center">
+                        <div class="text-lg font-bold">19/09/23</div>
+                        <div class="text-lg">N/A</div>
+                    </div>
+                    <div class="text-lg ">$400.00</div>
+                </div>
+                <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                    <div class="flex space-x-5 items-center">
+                        <div class="text-lg font-bold">19/09/23</div>
+                        <div class="text-lg">N/A</div>
+                    </div>
+                    <div class="text-lg ">$400.00</div>
+                </div>
+                <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                    <div class="flex space-x-5 items-center">
+                        <div class="text-lg font-bold">19/09/23</div>
+                        <div class="text-lg">N/A</div>
+                    </div>
+                    <div class="text-lg ">$400.00</div>
+                </div>
+                <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
+                    <div class="flex space-x-5 items-center">
+                        <div class="text-lg font-bold">19/09/23</div>
+                        <div class="text-lg">N/A</div>
+                    </div>
+                    <div class="text-lg ">$400.00</div>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    
+    
+</body>
+</html>

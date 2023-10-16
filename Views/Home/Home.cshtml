@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+<body class="bg-white px-4 sm:px-0 overflow-x-hidden">
+    <section class="block">
+       @*  <div class="md:flex md:justify-between xl:px-40 md:mt-12 md:px-2">
+            <div class="w-96 h-56 rotate-12 opacity-10 blur-xl absolute bg-[#efd3a0] hidden md:flex"></div>
+            <div class="md:flex md:items-center">
+                <img src="" class="" />
+                <p class="text-2xl text-primary first-letter:text-5xl first-letter:font-semibold py-2 md:py-0">
+                    Codeweb
+                </p>
+            </div>
+            <div class="md:flex md:space-x-10 xl:space-x-10 md:text-center md:items-center md:space-x-6 hidden">
+                <div class="md:h-12 md:w-24 text-primary text-lg md:text-gray md:py-2 ">
+                    <a href="#">Home</a>
+                </div>
+                <a href="#" class="text-lg">About</a>
+                <a href="#" class="text-lg">Contact</a>
+            </div>
+        </div>
+        <!-- Navbar End --> *@
+
+        <div class="flex flex-col-reverse justify-between items-center md:flex-row gap-10 md:mt-12 xl:px-40 md:px-8">
+            <div class="md:w-1/2 space-y-6 md:flex md:flex-col">
+                <p class="text-4xl md:text-6xl font-bold">Online</p>
+                <p class="text-4xl md:text-6xl font-bold text-primary">EDUCATION</p>
+                <div class="md:flex">
+                    <p class="text-lg opacity-80">
+                        OUR university has a new opportunity get the specially
+                        "management" online. Save Your time and study with us.
+                    </p>
+                </div>
+                <div class="md:flex ">
+                    <div class="">
+                        <a asp-controller="Admin" asp-action="Register"
+                           class="px-10 py-2  bg-primary rounded-lg text-white ">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:w-1/2 flex flex-col">
+                <img src="~/pages/images/image.jpg" class="" />
+                <div class="flex justify-end">
+                    <div class="w-96 h-56 rotate-12 opacity-25 blur-xl absolute bg-[#efd3a0] hidden md:flex"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../../assets/plugins/tailwind/tailwind.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          colors: {
+            primary: "#F67516",
+            orange: "#FEB52B",
+            white: "#ffffff",
+            black: "#000000",
+            gray: "#E3E3E2",
+          },
+          screens: {
+            sm: "500px",
+            md: "800px",
+            lg: "1024px",
+            //=>@media (min-width: 1024px) {...}
+            xl: "1280px",
+            //=>@media (min-width: 1280px) {...}
+            "2xl": "1536px",
+            //=>@media (min-width: 1536px) {...}
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <!-- <div class="mt-10 mx-10 lg:mx-[450px]">
+        <span class="text-primary text-[30px] font-bold">S</span><span class=" text-[30px] font-bold">M</span>
+    <span class="text-primary text-[30px] font-bold">S</span>
+</div> -->
+    <div class="mx-10 mt-10 my-6 border-2 border-primary rounded-2xl lg:mt-6 lg:w-4/12 lg:mx-auto">
+      <h1
+        class="text-[20px] font-semibold mt-10 mb-2 flex justify-center underline lg:text-[30px] lg:mt-12"
+      >
+        Payment Receipt
+      </h1>
+      <p class="px-6 pb-10 lg:text-[20px] lg:px-10 lg:py-4">
+        Student Management hereby confirms that we have received your payment in
+        the amount of 0.00 for your savings which are represented in the table
+        below.
+      </p>
+      <div>
+        <table class="w-10/12 mx-6 h-6 px-2 lg:mx-10">
+          <tr class="border">
+            <td
+              class="w-8 px-1 text-[14px] font-semibold lg:text-[18px] lg:pr-24 lg:pl-2"
+            >
+              Name
+            </td>
+            <td class="border"></td>
+          </tr>
+          <tr class="border">
+            <td
+              class="w-4 px-1 text-[14px] font-semibold lg:text-[18px] lg:pr-24 lg:pl-2"
+            >
+              Email
+            </td>
+            <td class="border"></td>
+          </tr>
+          <tr class="border">
+            <td
+              class="w-4 px-1 text-[14px] font-semibold lg:text-[18px] lg:pr-24 lg:pl-2"
+            >
+              PreviousAmount
+            </td>
+            <td class="border"></td>
+          </tr>
+          <tr class="border">
+            <td
+              class="w-4 px-1 text-[14px] font-semibold lg:text-[18px] lg:pr-24 lg:pl-2"
+            >
+              AmountDeposited
+            </td>
+            <td class="border"></td>
+          </tr>
+          <tr class="border">
+            <td
+              class="w-4 px-1 text-[14px] font-semibold lg:text-[18px] lg:pr-24 lg:pl-2"
+            >
+              Total
+            </td>
+            <td class="border"></td>
+          </tr>
+        </table>
+        <hr class="mt-24 w-36 mx-6 lg:w-60 lg:mt-40 lg:mx-10" />
+        <p class="px-6 font-semibold pb-40 lg:pb-20 lg:px-10 lg:text-[20px]">
+          Date/Signature
+        </p>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <button
+        class="px-6 bg-primary rounded-sm justify-center font-semibold text-white hover:scale-95 lg:mx-6"
+        onclick="print()"
+      >
+        Print
+      </button>
+    </div>
+
+    <script>
+        // const table = document.querySelector('#table')
+      const print = () => {
+        window.print();
+      };
+    </script>
+  </body>
+</html>
