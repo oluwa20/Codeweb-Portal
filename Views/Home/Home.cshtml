@@ -4,6 +4,13 @@
 @{
 }
 
+@model bool
+
+@{
+    Layout = Model ? "~/Views/Shared/_LayoutLoggedIn.cshtml" : "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Rest of your view content -->
 
 
 <body class="bg-white px-4 sm:px-0 overflow-x-hidden">

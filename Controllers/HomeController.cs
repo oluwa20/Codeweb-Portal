@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SMS.Data;
 using SMS.Models;
 using SMS.ViewModels;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace SMS.Controllers
 {
@@ -24,11 +27,49 @@ namespace SMS.Controllers
 
         public ActionResult Index()
         {
+             /*bool isLoggedIn = User.Identity.IsAuthenticated;*/
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Index(LoginViewModel logdto)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _context.Admins.SingleOrDefaultAsync(u =>
+                    u.Email == logdto.Email && u.Password == logdto.Password);
 
+                if (user != null)
+                {
+                    // Create claims for the authenticated user
+                    var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                // Add more claims if needed
+            };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    // Sign in the user
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                    return Redirect("~/Student/Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid email or password");
+                    return View(logdto);
+                }
+            }
+            return View(logdto);
+        }
+
+
+       
+
+        /*[HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(LoginViewModel logdto)
         {
             if (ModelState.IsValid)
@@ -43,13 +84,13 @@ namespace SMS.Controllers
                 else
                 {
                     //ModelState.AddModelError("Email", "Email address is already in use.");
-                    ModelState.AddModelError(string.Empty,"Invalid email or password") ;
+                    ModelState.AddModelError(string.Empty, "Invalid email or password");
                     return View(logdto);
                 }
             }
             //ModelState.AddModelError("Email", "Email address is already in use.");
             return View(logdto);
-        }
+        }*/
 
         public IActionResult Privacy()
         {

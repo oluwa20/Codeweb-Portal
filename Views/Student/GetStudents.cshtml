@@ -11,10 +11,15 @@
 @* <p>
     <a asp-action="Index">Create New</a>
 </p> *@
+
+@{
+    Layout = "_LayoutLoggedIn";
+}
+
 <form method="get" action="@Url.Action("GetStudents", "Student")">
 <section class="px-3 py-16 md:px-48 md:pt-40 md:pb-20">
     <nav class="space-y-4">
-        <input type="text" class="w-full border border-grey shadow px-3 py-2 placeholder:text-black focus:outline-none
+            <input name="searchQuery" type="text" class="w-full border border-grey shadow px-3 py-2 placeholder:text-black focus:outline-none
              focus:border-secondary md:px-5" placeholder="Search by name..." name="searchQuery">
         <button class="bg-primary px-5 py-1 font-semibold text-[17px] rounded-sm text-black">Search</button>
     </nav>

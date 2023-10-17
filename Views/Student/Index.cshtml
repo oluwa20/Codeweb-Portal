@@ -90,20 +90,35 @@
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
                     </form> *@
-                <div class="w-8/12 py-10 flex flex-col mx-auto mt-20 items-center rounded-lg shadow-lg lg:w-4/12 lg:mx-auto mt-20">
-                    <h1 class="font-bold text-[15px] text-center py-4 lg:text-[30px] lg:px-12 lg:pt-12 lg:pb-10 lg:py-16">REGISTER A NEW STUDENT</h1>
-                  <form asp-action="Register" method="post">
-                        <input asp-for="StudentName" type="text" placeholder="Name" class="w-9/12 border-b-2  rounded mt-6 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange  lg:focus:ring-orange">
+@{
+    Layout = "_LayoutLoggedIn";
+}
 
 
-                        <input asp-for="Email" type="email" placeholder="Email" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
 
 
-                        <input asp-for="Phone" type="text" placeholder="Phone Number" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
+   
+    @* <p>This is a personalized message for authenticated users.</p> *@
+    <!-- Add content specific to authenticated users here -->
+    <div class="w-8/12 py-10 flex flex-col mx-auto mt-20 items-center rounded-lg shadow-lg lg:w-4/12 lg:mx-auto mt-20">
+        <h1 class="font-bold text-[15px] text-center py-4 lg:text-[30px] lg:px-12 lg:pt-12 lg:pb-10 lg:py-16">REGISTER A NEW STUDENT</h1>
+        <form asp-action="Register" method="post">
+            <input asp-for="StudentName" type="text" placeholder="Name" class="w-9/12 border-b-2  rounded mt-6 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange  lg:focus:ring-orange">
 
 
-                        <input asp-for="Address" type="text" placeholder="Address" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
+            <input asp-for="Email" type="email" placeholder="Email" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
 
-                    <button type="submit" class=" text-white bg-primary px-6 py-2 font-semibold mt-10 border rounded-lg lg:text-[18px] lg:px-20 lg:font-bold hover:scale-95 hover:shadow-lg ">Register</button>
-                    </form>
-                </div>
+
+            <input asp-for="Phone" type="text" placeholder="Phone Number" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
+
+
+            <input asp-for="Address" type="text" placeholder="Address" class="w-9/12 border-b-2  rounded mt-6  lg:mx-12 lg:py-2 lg:text-[18px] lg:w-9/12 lg:px-4 focus:outline focus:outline-primary focus:border-0 focus:ring-4 focus:ring-orange ">
+
+            <button type="submit" class=" text-white bg-primary px-6 py-2 font-semibold mt-10 border rounded-lg lg:text-[18px] lg:px-20 lg:font-bold hover:scale-95 hover:shadow-lg ">Register</button>
+        </form>
+    </div>
+
+
+<!-- Rest of your view content goes here -->
+
+           

@@ -166,14 +166,11 @@ namespace SMS.Controllers
                 .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
                             && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
                 .SumAsync(p => p.Amount);
-
-
             var totalExpenditures = await _Context.Expenditures
-                .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
-                            && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
-                .SumAsync(e => e.Amount);
+           .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
+                       && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
+           .SumAsync(e => e.Amount);
 
-            
             var revenue = totalPayments - totalExpenditures;
 
             var model = new RevenueViewModel
@@ -187,7 +184,41 @@ namespace SMS.Controllers
         }
 
 
-       
+
+        /*  [HttpPost]
+          public async Task<ActionResult> MonthlyRevenue(DateTime startMonth, DateTime endMonth)
+          {
+              int startYear = startMonth.Year;
+              int startMonthValue = startMonth.Month;
+              int endYear = endMonth.Year;
+              int endMonthValue = endMonth.Month;
+
+              var totalPayments = await _Context.Payments
+                  .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
+                              && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
+                  .SumAsync(p => p.Amount);
+
+
+              var totalExpenditures = await _Context.Expenditures
+                  .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
+                              && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
+                  .SumAsync(e => e.Amount);
+
+
+              var revenue = totalPayments - totalExpenditures;
+
+              var model = new RevenueViewModel
+              {
+                  StartMonth = startMonth,
+                  EndMonth = endMonth,
+                  TotalRevenue = revenue
+              };
+
+              return View(model);
+          }*/
+
+
+
 
         public ActionResult Expense()
         {
@@ -200,12 +231,12 @@ namespace SMS.Controllers
             {
                 Expenses = expense.Expenses,
                 Amount = expense.Amount,
-                Description =expense.Description,
-                Date = expense.Date
+               /* Description =expense.Description,
+                Date = expense.Date*/
             };
             await _Context.Expenditures.AddAsync(debit);
             await _Context.SaveChangesAsync();
-            return RedirectToAction("");
+            return RedirectToAction("GetExpense");
         }
         [HttpGet]
         public async Task<ActionResult> GetExpense()

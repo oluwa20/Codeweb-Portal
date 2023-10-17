@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SMS.Data;
-using DinkToPdf;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using DinkToPdf.Contracts;
+using DinkToPdf;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +14,14 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 // Register DinkToPdf converter
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Student/Index"; // Specify your login page URL
+        options.AccessDeniedPath = "/Home/Index"; // Specify your access denied page URL
+    });
 
 var app = builder.Build();
 
@@ -30,8 +36,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseRouting(); 
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

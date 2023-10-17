@@ -67,35 +67,10 @@
                 <a href="#" class="text-lg">Contact</a>
             </div>
         </div>
-        <!-- Navbar End -->
-
-        @* <div class="flex flex-col-reverse justify-between items-center md:flex-row gap-10 md:mt-12 xl:px-40 md:px-8"> *@
+       
             @RenderBody()
-           @*  <div class="md:w-1/2 space-y-6 md:flex md:flex-col">
-                <p class="text-4xl md:text-6xl font-bold">Online</p>
-                <p class="text-4xl md:text-6xl font-bold text-primary">EDUCATION</p>
-                <div class="md:flex">
-                    <p class="text-lg opacity-80">
-                        OUR university has a new opportunity get the specially
-                        "management" online. Save Your time and study with us.
-                    </p>
-                </div>
-                <div class="md:flex ">
-                    <div class="">
-                        <a href="pages/signup.html"
-                           class="px-10 py-2  bg-primary rounded-lg text-white ">Get Started</a>
-                    </div>
-                </div>
-            </div>
- *@
-            @* <div class="md:w-1/2 flex flex-col">
-                <img src="~/pages/images/image.jpg" class="" />
-                <div class="flex justify-end">
-                    <div class="w-96 h-56 rotate-12 opacity-25 blur-xl absolute bg-[#efd3a0] hidden md:flex"></div>
-                </div>
-            </div>
-        </div>
-    </section> *@
+           
+   
         @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
