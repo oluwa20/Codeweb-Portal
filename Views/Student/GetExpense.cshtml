@@ -57,6 +57,9 @@
    
 </table> *@
 
+
+
+
 <div class="flex flex-col  space-y-15 w-4/6">
     <div class=" h-[55px] rounded-sm bg-black shadow-3xl py-3 flex justify-between w-screen lg:w-[80vw]  mx-auto shadow-5xl ">
         <p class="font-bold  text-xs text-white  tracking-tight md:text-lg sm:tracking-wider mx-5">
@@ -121,6 +124,15 @@
             </div>
                 
             }
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="mt-4 flex justify-center">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a href="?page=@i" class="mx-1 px-4 py-2 bg-orange-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline @(i == ViewBag.CurrentPage ? "bg-blue-700" : "")">@i</a>
+                    }
+                </div>
+            }
             
             @* <div class="w-3/4 mx-auto bg-slate-100 flex flex-col text-xs md:text-md lg:text-lg text-[#feb52b] font-bold rounded-md  h-10 md:h-20 pt-2">
                 <cite class="mx-5 ">
@@ -174,7 +186,15 @@
                 </cite>
             </div>
              }
-               <a asp-controller="Student" asp-action="Expense">Add Expense</a>
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="mt-4 flex justify-center">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a href="?page=@i" class="mx-1 px-4 py-2 bg-orange-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline @(i == ViewBag.CurrentPage ? "bg-blue-700" : "")">@i</a>
+                    }
+                </div>
+            }
             @* <div class="w-3/4 mx-auto bg-slate-100 flex flex-col text-xs md:text-md lg:text-lg text-[#feb52b] font-bold rounded-md  h-10 md:h-20 pt-2 ">
                 <cite class="mx-5 ">
                     Ink And Markers

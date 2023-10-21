@@ -3,27 +3,29 @@
 @{
     ViewData["Title"] = "Add Payment";
 }
+
 @{
     Layout = "_LayoutLoggedIn";
 }
-@* <h1>Add Payment</h1> *@
-@if (User.Identity.IsAuthenticated)
-{
-    <form asp-action="AddPayment">
-        <input type="hidden" asp-for="StudentId" />
-        <div class="flex flex-col mx-6 lg:mx-20 lg:w-8/12">
-            <h1 class="my-10 text-2xl font-semibold">Add Payment</h1>
-            <label class="font-semibold">Amount</label>
-            <input asp-for="Amount" type="number"  class="border rounded-md my-2 py-1 text-xl px-2 focus:outline-orange focus:ring-2 focus:ring-primary">
-            <span asp-validation-for="Amount" class="text-danger"></span>
-            <label class="font-semibold pt-6">Payment Date</label>
-            <input asp-for="Date" type="date"  class="border rounded-md my-2 py-1 text-xl px-2 focus:outline-orange focus:ring-2 focus:ring-primary">
-            <span asp-validation-for="Date" class="text-danger"></span>
-            <input type="submit" value="Add Payment" class=" text-white bg-primary px-6 py-2 font-semibold mt-10 border rounded-lg lg:text-[18px] lg:px-20 lg:font-bold hover:scale-95 hover:shadow-lg ">
 
-        </div>
-    </form>
-}
+
+
+
+<form asp-action="AddPayment">
+    <input type="hidden" asp-for="StudentId" />
+    <div class="flex flex-col mx-6 lg:mx-20 lg:w-8/12">
+        <h1 class="my-10 text-2xl font-semibold">Add Payment</h1>
+        <label class="font-semibold">Amount</label>
+        <input asp-for="Amount"  class="border rounded-md my-2 py-1 text-xl px-2 focus:outline-orange focus:ring-2 focus:ring-primary">
+        <span asp-validation-for="Amount" class="text-danger"></span>
+        <label class="font-semibold pt-6">Payment Date</label>
+        <input asp-for="Date" type="date" class="border rounded-md my-2 py-1 text-xl px-2 focus:outline-orange focus:ring-2 focus:ring-primary">
+        <span asp-validation-for="Date" class="text-danger"></span>
+        <input type="submit" value="Add Payment" class=" text-Black bg-orange px-6 py-2 font-semibold mt-10 border rounded-lg lg:text-[18px] lg:px-20 lg:font-bold hover:scale-95 hover:shadow-lg ">
+
+    </div>
+</form>
+
 @* <form asp-action="AddPayment">
     <input type="hidden" asp-for="StudentId" />
     <div class="form-group">

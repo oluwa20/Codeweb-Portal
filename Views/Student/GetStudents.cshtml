@@ -74,6 +74,20 @@
                 }
             </tbody>
         </table>
+
+        <!-- Display your table or grid here -->
+        <!-- Pagination controls -->
+        @if (ViewBag.TotalPages > 1)
+        {
+            <div class="mt-4 flex justify-center">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <a href="?page=@i&searchQuery=@ViewBag.SearchQuery" class="mx-1 px-4 py-2 bg-orange-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline @(i == ViewBag.CurrentPage ? "bg-blue-700" : "")">@i</a>
+                }
+            </div>
+        }
+
+
     </nav>
 
     
@@ -92,7 +106,21 @@
                     <a asp-action="PaymentHistory" asp-route-studentId="@student.StudentId" class="text-primary hover:underline">Payment History</a>
                 </div>
         </div>
-      
+
+            <!-- Display your table or grid here -->
+            <!-- Pagination controls -->
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="mt-4 flex justify-center" >
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a href="?page=@i&searchQuery=@ViewBag.SearchQuery" class="mx-1 px-4 py-2 bg-orange-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline @(i == ViewBag.CurrentPage ? "bg-blue-700" : "")">@i</a>
+                    }
+                </div>
+            }
+
+
+
     </nav>
     }
 

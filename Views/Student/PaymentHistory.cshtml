@@ -37,6 +37,9 @@
 @{
     Layout = "_LayoutLoggedIn";
 }
+
+
+
 <section class="mx-3 py-4 md:py-16 md:px-24">
 
     <div class=" md:py-36">
@@ -69,49 +72,19 @@
                     </tr>
                 </tfoot>
             </table>
+           
         </nav>
 
-        <!-- Phone-View -->
-        <nav class="px-2 grid grid-cols-1 gap-4 sm:grid-cols-2 block md:hidden">
-            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
-                 @foreach (var payment in Model.Payments)
+        @if (ViewBag.TotalPages > 1)
+        {
+            <div class="mt-4 flex justify-center">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
                 {
-                <div class="flex space-x-5 items-center">
-                    <div class="text-lg font-bold">@payment.PaymentDate.ToShortDateString()</div>
-                    <div class="text-lg ">>@(payment.Date.HasValue ? payment.Date.Value.ToString("yyyy-MM-dd") : "N/A")</div>
-                </div>
-                <div class="text-lg">>@(payment.Date.HasValue ? payment.Date.Value.ToString("yyyy-MM-dd") : "N/A")</div>
+                    <a href="?studentId=@Model.StudentId&page=@i" class="mx-1 px-4 py-2 bg-orange-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline @(i == ViewBag.CurrentPage ? "bg-blue-700" : "")">@i</a>
                 }
             </div>
+        }
         
-       @*      <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
-                <div class="flex space-x-5 items-center">
-                    <div class="text-lg font-bold">19/09/23</div>
-                    <div class="text-lg">N/A</div>
-                </div>
-                <div class="text-lg ">$400.00</div>
-            </div>
-            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
-                <div class="flex space-x-5 items-center">
-                    <div class="text-lg font-bold">19/09/23</div>
-                    <div class="text-lg">N/A</div>
-                </div>
-                <div class="text-lg ">$400.00</div>
-            </div>
-            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
-                <div class="flex space-x-5 items-center">
-                    <div class="text-lg font-bold">19/09/23</div>
-                    <div class="text-lg">N/A</div>
-                </div>
-                <div class="text-lg ">$400.00</div>
-            </div>
-            <div class="bg-grey p-3 rounded-lg space-y-4 shadow-lg">
-                <div class="flex space-x-5 items-center">
-                    <div class="text-lg font-bold">19/09/23</div>
-                    <div class="text-lg">N/A</div>
-                </div>
-                <div class="text-lg ">$400.00</div>
-            </div> *@
-        </nav>
-    </div>
+   
 </section>
+>
