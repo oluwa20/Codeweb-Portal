@@ -46,16 +46,16 @@
     <a asp-action="Index">Back to List</a>
 </div> *@
 
-<div class="w-7/12 h-96 border border-gray shadow-lg rounded-sm mx-auto  flex flex-col my-40 lg:w-4/12">
-   <form asp-action="Expense">
+<div class="w-7/12 h-80 border border-gray shadow-lg rounded-lg mx-auto flex flex-col my-20 lg:w-4/12">
+   <form asp-action="Expense" class="flex flex-col justify-center ">
     <h1 class="flex justify-center font-bold text-2xl py-6 pb-10">Expenditure Form</h1>
         <label asp-for="Expenses" for="" class="mx-8 font-semibold ">Expenditure:</label>
-        <input asp-for="Expenses" type="text" class="border mx-8 py-1 mb-4 px-6 my-1 rounded-lg focus:outline-orange ">
+        <input asp-for="Expenses" type="text" class="border mx-8 py-1 mb-2 px-6 rounded-lg focus:outline-orange ">
 
         <label asp-for="Amount" for="" class="mx-8 font-semibold">Amount:</label>
         <input asp-for="Amount" type="text" class="border mx-8 py-1 px-6 my-1 rounded-lg focus:outline-orange">
 
-    <button type="Submit" class="bg-orange-500 px-20 text-center py-1 mx-8 my-14 rounded-sm font-bold text-white text-lg hover:scale-95">Submit</button>
+    <button type="Submit" class="bg-orange-500 px-20 text-center py-1 mx-8 my-5 rounded-lg font-bold text-white text-lg hover:scale-95">Submit</button>
     </form>
 </div>
 
