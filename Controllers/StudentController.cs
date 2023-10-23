@@ -5,6 +5,7 @@ using SMS.Migrations;
 using SMS.Models;
 using SMS.ViewModels;
 using DinkToPdf;
+using System.Linq;
 using DinkToPdf.Contracts;
 
 namespace SMS.Controllers
@@ -189,6 +190,21 @@ namespace SMS.Controllers
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public ActionResult MonthlyPayments()
         {
@@ -221,7 +237,7 @@ namespace SMS.Controllers
             return View(paginatedPayment);
         }
 
-        
+
 
 
 

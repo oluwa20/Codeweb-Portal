@@ -13,8 +13,8 @@
   
     <section class="hidden md:block">
         <div class="flex space-x-6 lg:space-x-24 2xl:space-x-72">
-            <img src="~/pages/images/login.png"
-            class="h-screen w-[450px] object-cover rounded-e-[50px] lg:w-[550px] xl:w-[800px]">
+            <img src="~/pages/images/Student.png"
+            class="h-full w-[450px] object-cover rounded-e-[50px] lg:w-[550px] xl:w-[800px]">
              <div class="">
                 <div class="flex mt-6 items-center">
                     <img src=""
@@ -26,25 +26,25 @@
                 <form asp-action="Index" method="post">
                   <div class="mt-7 w-[300px] space-y-8 mt-24">
 
-                        <input asp-for="Email" type="email" class="h-16 w-72 rounded-2xl border-black px-4 border-2
+                        <input asp-for="Email" type="email" class="py-3 w-72 rounded-lg border-black px-4 border
                      placeholder:text-lg lg:w-80" placeholder="Email">
                         <span asp-validation-for="Email" class="text-danger"></span>
-                        <input asp-for="Password" type="password" class="h-16 w-72 rounded-2xl border-black px-4 border-2
+                        <input asp-for="Password" type="password" class="py-3 w-72 rounded-lg border-black px-4 border
                      placeholder:text-lg lg:w-80" placeholder="Password">
                         <span asp-validation-for="Password" class="text-danger"></span>
 
                 </div>
-                <div class="flex justify-end mt-6">
-                  <a href="#" class="text-lg font-light hover:underline">forgetten password?</a>
+                <div class=" mt-6 flex justify-end mt-5">
+                  <a href="#" class="text-lg font-light text-[orangered] hover:underline">forgot password?</a>
                 </div>
-                <div class="flex justify-center mt-40 text-center">
-                  <button type="submit" class="px-4 h-12 bg-primary rounded-full w-60 text-white text-bold text-xl border-primary border-2 
+                <div class="flex justify-center text-center mt-5">
+                  <button type="submit" class="px-4 h-12 bg-primary rounded-lg w-60 text-white text-bold text-xl border-primary border-2 
                   ">Login</button>
                 
                </div>
                </form>
-               <div class="flex text-center justify-center mt-40">
-                <p class="text-center text-lg font-semibold">Did'n Have Account <a asp-controller="Admin" asp-action="Register"  class="text-md font-light hover:underline">Sign Up</a></p>
+               <div class="flex text-center justify-center mt-5">
+                <p class="text-center text-lg font-semibold">Don't Have Account? <a asp-controller="Admin" asp-action="Register"  class="text-md font-light hover:underline">Sign Up</a></p>
               </div>
              </div>
         </div>
