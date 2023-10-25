@@ -32,6 +32,7 @@ namespace SMS.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+      
         public async Task<ActionResult> Index(LoginViewModel logdto)
         {
             if (ModelState.IsValid)
@@ -54,7 +55,8 @@ namespace SMS.Controllers
                     // Sign in the user
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    return Redirect("~/Student/Index");
+                    // Redirect to the appropriate page after successful login
+                    return RedirectToAction("Index", "Student");
                 }
                 else
                 {
@@ -66,7 +68,15 @@ namespace SMS.Controllers
         }
 
 
-       
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("~/Home/Home"); // Redirect to the login page
+        }
 
         /*[HttpPost]
         [ValidateAntiForgeryToken]

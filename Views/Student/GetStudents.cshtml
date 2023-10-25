@@ -21,15 +21,17 @@
     <nav class="space-y-4">
             <input name="searchQuery" type="text" class="w-full border border-grey shadow px-3 py-2 placeholder:text-black focus:outline-none
              focus:border-secondary md:px-5" placeholder="Search by name..." name="searchQuery">
-        <button class="bg-primary px-5 py-1 font-semibold text-[17px] rounded-sm text-black">Search</button>
+        <button class="bg-orange-600 px-5 py-1 font-semibold text-[17px] rounded-sm text-black">Search</button>
     </nav>
 </section>
 </form>
+<div id="studentTable"></div>
+
 
 
 <section class="px-3 md:px-12 lg:px-20">
     <nav class=" hidden md:block">
-        <table class="w-full overflow-hidden">
+        <table class="w-full overflow-hidden" id="studentTable">
             <thead class="">
                 <tr class="text-[14px] border-b border-secondary text-left ">
                     <th class="px-4 py-2 text-[15px] tracking-wide">
