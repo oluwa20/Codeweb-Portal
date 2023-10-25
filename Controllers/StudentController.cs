@@ -59,7 +59,7 @@ namespace SMS.Controllers
         [HttpGet]
         public async Task<ActionResult> GetStudents(string searchQuery, int page = 1)
         {
-            const int PageSize = 2; // Number of items per page
+            const int PageSize = 5; // Number of items per page
 
             IQueryable<Student> students = _Context.Students;
 
@@ -152,7 +152,7 @@ namespace SMS.Controllers
         [HttpGet]
         public async Task<ActionResult> PaymentHistory(Guid studentId, int page = 1)
         {
-            const int PageSize = 3; // Number of items per page
+            const int PageSize = 5; // Number of items per page
 
             var student = await _Context.Students
                 .Include(s => s.Payments)
@@ -215,7 +215,7 @@ namespace SMS.Controllers
         public async Task<ActionResult> MonthlyPayments(DateTime startMonth, DateTime endMonth, int page = 1)
         {
 
-            const int PageSize = 3;
+            const int PageSize = 5;
 
             int startYear = startMonth.Year;
             int startMonthValue = startMonth.Month;
@@ -428,7 +428,7 @@ namespace SMS.Controllers
         [HttpGet]
         public async Task<ActionResult> GetExpense(int page = 1)
         {
-            const int PageSize = 3; // Number of items per page
+            const int PageSize = 5; // Number of items per page
 
             var expenditures = await _Context.Expenditures.ToListAsync();
             decimal totalAmount = expenditures.Sum(e => e.Amount);
