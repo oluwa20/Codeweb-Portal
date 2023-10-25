@@ -5,5 +5,6 @@
         public DateTime StartMonth { get; set; }
         public DateTime EndMonth { get; set; }
         public decimal TotalRevenue { get; set; }
+        public decimal TotalAllExpenditures { get; set; }
     }
 }

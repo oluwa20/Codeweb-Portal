@@ -2,111 +2,32 @@
 
 @{
     ViewData["Title"] = "Monthly Payments";
-}
-
-@{
     Layout = "_LayoutLoggedIn";
 }
 
-@* <h1>Monthly Payments</h1>
-
-<div class="container-fluid">
-    <div class="row">
-
-        <div class="col-md-6">
-            <div class="register-box">
-                <div class="card">
-                    <div class="card-body register-card-body">
-
-                     <div class="register-box">
-                      <div class="card">
-                       <div class="card-body register-card-body">
-                        <h1 class="login-box-msg">Monthly Payments</h1>
-             <form method="post" action="">
-                     <div class="form-group">
-                     <label for="startMonth">Start Date:</label>
-                     <input type="date" class="form-control" id="startMonth" name="startMonth" required />
-                     </div>
-
-                     <div class="form-group">
-                     <label for="endMonth">End Date:</label>
-                     <input type="date" class="form-control" id="endMonth" name="endMonth" required />
-                     </div>
-                     <div class="form-group">
-                    <label for="year">Year:</label>
-                    <input type="number" class="form-control" id="year" name="year" min="2000" max="2100" required />
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block">Submit</button>
-            </form>
-                    </div>
-                </div>
+<section class="mt-10 md:flex sm:px-6 md:px-9 md:space-x-8 md:pt-16 md:justify-evenly md:items-center lg:justify-start lg:px-20">
+    <nav class="px-3 space-y-3 lg:w-1/2">
+        <p class="text-xl font-bold md:text-2xl lg:text-3xl lg:pb-5">Monthly Payments</p>
+        <form method="post" action="" class="border border-grey shadow-lg px-3 py-5 space-y-2 rounded-xs md:px-10 md:py-7 md:space-y-4">
+            <div class="space-y-1 lg:space-y-2">
+                <label class="text-black font-semibold text-[16px] md:text-xl">Start Date:</label>
+                <input id="startMonth" name="startMonth" required type="date" class="border border-grey w-full px-3 py-1 placeholder:text-primary focus:outline-none
+                        focus:border-secondary md:w-full" value="@ViewBag.StartDate">
             </div>
-        </div>
-       
-        <div class="col-md-6" style="margin-left:400px;  margin-top:-370px;">
-            @if (Model != null && Model.Any())
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Student Name</th>
-                            <th>Amount</th>
-                            <th>Payment Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var payment in Model)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => payment.Student.StudentName)</td>
-                                <td>@Html.DisplayFor(modelItem => payment.Amount)</td>
-                                <td>@payment.PaymentDate.ToString("yyyy-MM-dd")</td>
-                            </tr>
-                        }
-                    </tbody>
-                     <tfoot>
-                      <tr>
-                      <td colspan="2"><strong>Total Amount:</strong></td>
-                      <td><strong>@ViewBag.TotalAmount.ToString(" ₦0")</strong></td>
-                      </tr>
-                      </tfoot>
-                </table>
-            }
-            else
-            {
-                <p>No payments found for the specified period.</p>
-            }
-        </div>
-    </div>
-</div> *@
+            <div class="space-y-1 lg:space-y-2">
+                <label class="text-black font-semibold text-[16px] md:text-xl">End Date:</label>
+                <input id="endMonth" name="endMonth" required type="date" class="border border-grey w-full px-3 py-1 focus:outline-none focus:border-secondary" value="@ViewBag.EndDate">
+            </div>
 
+            <div class="">
+                <button class="bg-orange-600 text-white rounded-lg text-center font-bold w-full py-2 mt-4">Submit</button>
+            </div>
+        </form>
+    </nav>
 
-
-
-            <section class="mt-10 md:flex sm:px-6 md:px-9 md:space-x-8 md:pt-16 md:justify-evenly md:items-center lg:justify-start lg:px-20">
-                <nav class="px-3 space-y-3 lg:w-1/2">
-                    <p class="text-xl font-bold md:text-2xl lg:text-3xl lg:pb-5">Monthly Payments</p>
-                    <form method="post" action="" class="border border-grey shadow-lg px-3 py-5 space-y-2 rounded-xs md:px-10 md:py-7 md:space-y-4">
-                        <div class="space-y-1 lg:space-y-2">
-                            <label class="text-black font-semibold text-[16px] md:text-xl">Start Date:</label>
-                        <input id="endMonth" name="endMonth" required type="date" class="border border-grey w-full px-3 py-1 placeholder:text-primary focus:outline-none
-                        focus:border-secondary md:w-full">
-                        </div>
-                        <div class="space-y-1 lg:space-y-2">
-                            <label class="text-black font-semibold text-[16px] md:text-xl">End Date:</label>
-                        <input id="endMonth" name="endMonth" required type="date" class="border border-grey w-full px-3 py-1 focus:outline-none focus:border-secondary">
-                        </div>
-                       
-                        <div class="">
-                            <button class="bg-orange-600 text-white rounded-lg text-center font-bold w-full py-2 mt-4" >Submit</button>
-                        </div>
-                    </form>
-                </nav>
-                 @if (Model != null && Model.Any())
-            {
+    @if (Model != null && Model.Any())
+    {
         <nav class="hidden md:block md:space-y-10 lg:px-5 lg:w-1/2">
-
             <table class="w-full overflow-hidden">
                 <thead>
                     <tr class="border-b border-secondary text-left">
@@ -118,13 +39,12 @@
                 <tbody>
                     @foreach (var payment in Model)
                     {
-                    <tr class="border-b border-grey">
+                        <tr class="border-b border-grey">
                             <td class="px-4 py-2">@Html.DisplayFor(modelItem => payment.Student.StudentName)</td>
                             <td class="px-4 py-2">@Html.DisplayFor(modelItem => payment.Amount)</td>
-                            <td class="px-4 py-2">@payment.PaymentDate.ToString("yyyy-MM-dd")<td>
-                    </tr>
+                            <td class="px-4 py-2">@payment.PaymentDate.ToString("yyyy-MM-dd")</td>
+                        </tr>
                     }
-                  
                 </tbody>
             </table>
 
@@ -132,35 +52,20 @@
                 <p class="text-xl text-primary font-bold">Total Amount:</p>
                 <strong>@ViewBag.TotalAmount.ToString(" ₦0")</strong>
             </div>
-            </nav>
-        @if (ViewBag.TotalPages > 1)
-        {
-            <div class="mt-4 flex justify-center">
-                @for (int i = 1; i <= ViewBag.TotalPages; i++)
-                {
-                    <a href="?page=@i" class="mx-1 px-4 py-2 bg-orange-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline @(i == ViewBag.CurrentPage ? "bg-blue-700" : "")">@i</a>
-                }
-            </div>
-        }
-       }
 
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="mt-4 flex justify-center">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a href="?page=@i&startMonth=@ViewBag.StartDate&endMonth=@ViewBag.EndDate" class="mx-1 px-4 py-2 bg-orange-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline @(i == ViewBag.CurrentPage ? "bg-blue-700" : "")">@i</a>
+                    }
+                </div>
+            }
+        </nav>
+    }
     else
     {
-        <p class="text-orange">No payments found for the specified period.</p>
+        <p class="text-orange-600">No payments found for the specified period.</p>
     }
-
- 
-   
-</section> 
-
-
-
-
-            @*  <td>
-                @Html.DisplayFor(modelItem => payment.PaymentDate.ToString("yyyy-MM-dd"))
-            </td>
- *@
-
-
-
-
+</section>

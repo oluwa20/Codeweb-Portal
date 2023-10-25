@@ -10,6 +10,86 @@
 @{
     Layout = "_LayoutLoggedIn";
 }
+
+
+
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-semibold mb-4">Monthly Revenue Report</h1>
+
+    <div class="flex mb-4">
+        <div class="w-1/2">
+            <p><strong>Start Month:</strong> @Model.StartMonth.ToString("MMMM yyyy")</p>
+            <p><strong>End Month:</strong> @Model.EndMonth.ToString("MMMM yyyy")</p>
+        </div>
+        <div class="w-1/2 text-right">
+            <p><strong>Total Revenue:</strong> ₦@Model.TotalRevenue.ToString("0.00")</p>
+            <p><strong>Total Expenditures:</strong> ₦@Model.TotalAllExpenditures.ToString("0.00")</p>
+        </div>
+    </div>
+
+    <h2 class="text-xl font-semibold mb-2">Monthly Revenue Details</h2>
+
+    <table class="min-w-full border rounded-lg overflow-hidden">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="w-1/2 px-4 py-2">Description</th>
+                <th class="w-1/4 px-4 py-2">Amount (₦)</th>
+                <th class="w-1/4 px-4 py-2">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through your revenue items and display them in rows -->
+            <!-- Example:
+          @*   @foreach (var revenueItem in Model.RevenueItems)
+            {
+                <tr>
+                    <td class="border px-4 py-2">@revenueItem.Description</td>
+                    <td class="border px-4 py-2">₦@revenueItem.Amount.ToString("0.00")</td>
+                    <td class="border px-4 py-2">@revenueItem.Date.ToString("yyyy-MM-dd")</td>
+                </tr>
+            } *@
+            -->
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @* <form method="post" asp-action="MonthlyRevenue">
     <div class="form-group">
         <label for="startMonth">Start Date:</label>
@@ -42,7 +122,7 @@ else
 
 
 
-<section class="mt-10 md:flex sm:px-6 md:px-9 md:space-x-8 md:pt-16 md:justify-evenly md:items-center lg:justify-start lg:px-20">
+@* <section class="mt-10 md:flex sm:px-6 md:px-9 md:space-x-8 md:pt-16 md:justify-evenly md:items-center lg:justify-start lg:px-20">
     <nav class="px-3 space-y-3 lg:w-1/2">
         <p class="text-xl font-bold md:text-2xl lg:text-3xl lg:pb-5">Monthly Payments</p>
         <form method="post" action="" class="border border-grey shadow-lg px-3 py-5 space-y-2 rounded-xs md:px-10 md:py-7 md:space-y-4">
@@ -70,7 +150,7 @@ else
     {
         <p class="text-orange">No payments found for the specified period.</p>
     }
-</section>
+</section> *@
 
 
 

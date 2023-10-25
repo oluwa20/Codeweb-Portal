@@ -3,6 +3,7 @@ using SMS.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using DinkToPdf.Contracts;
 using DinkToPdf;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/Student/Index"; // Specify your login page URL
         options.AccessDeniedPath = "/Home/Index"; // Specify your access denied page URL
+        options.LogoutPath = "/Account/Logout"; // Set the logout path
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+
 
 var app = builder.Build();
 

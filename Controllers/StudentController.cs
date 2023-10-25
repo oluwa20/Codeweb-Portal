@@ -7,9 +7,11 @@ using SMS.ViewModels;
 using DinkToPdf;
 using System.Linq;
 using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SMS.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly SmsDbContext _Context;
@@ -78,6 +80,8 @@ namespace SMS.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.SearchQuery = searchQuery; // Pass searchQuery to the view for maintaining the search state
+
+
 
             return View(studentList);
         }
@@ -206,16 +210,11 @@ namespace SMS.Controllers
 
 
         [HttpGet]
-        public ActionResult MonthlyPayments()
+        public async Task<ActionResult> MonthlyPayments()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> MonthlyPayments(DateTime startMonth, DateTime endMonth, int page = 1)
-        {
-
-            const int PageSize = 3;
+            
+            DateTime startMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime endMonth = startMonth.AddMonths(1).AddDays(-1); // Last day of the current month
 
             int startYear = startMonth.Year;
             int startMonthValue = startMonth.Month;
@@ -224,94 +223,89 @@ namespace SMS.Controllers
 
             var payments = await _Context.Payments
                 .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                         && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
+                            && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
                 .Include(p => p.Student)
                 .ToListAsync();
 
             var totalAmount = payments.Sum(p => p.Amount);
-            var paginatedPayment = payments.Skip(page).Take(PageSize).ToList();
+
+            ViewBag.TotalAmount = totalAmount;
+            return View(payments);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> MonthlyPayments(string startMonth, string endMonth, int page = 1)
+        {
+            DateTime startDate = DateTime.Parse(startMonth);
+            DateTime endDate = DateTime.Parse(endMonth).AddDays(1).AddTicks(-1); // Include end date in the query
+
+            const int PageSize = 3; // Number of items per page
+
+            var payments = await _Context.Payments
+                .Where(p => p.PaymentDate >= startDate && p.PaymentDate <= endDate)
+                .Include(p => p.Student)
+                .OrderByDescending(p => p.PaymentDate) // Order by payment date, adjust as needed
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            int totalItems = await _Context.Payments.CountAsync(p => p.PaymentDate >= startDate && p.PaymentDate <= endDate);
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
 
             ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.StartDate = startMonth;
+            ViewBag.EndDate = endMonth;
+
+            var totalAmount = payments.Sum(p => p.Amount);
             ViewBag.TotalAmount = totalAmount;
-            ViewBag.TotalPages = (int)Math.Ceiling(payments.Count / (double)PageSize);
-            return View(paginatedPayment);
+
+            return View(payments);
         }
 
 
 
 
+        /* [HttpPost]
+         public async Task<ActionResult> MonthlyPayments(DateTime startMonth, DateTime endMonth)
+         {
+             // Set the end date to be the end of the selected day
+             endMonth = endMonth.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
 
-        /*
-                [HttpPost]
-                public async Task<ActionResult> MonthlyPayments(DateTime startMonth, DateTime endMonth, int page = 1, int pageSize = 10)
-                {
-                    int startYear = startMonth.Year;
-                    int startMonthValue = startMonth.Month;
-                    int endYear = endMonth.Year;
-                    int endMonthValue = endMonth.Month;
+             var payments = await _Context.Payments
+                 .Where(p => p.PaymentDate >= startMonth && p.PaymentDate <= endMonth)
+                 .Include(p => p.Student)
+                 .ToListAsync();
 
-                    var paymentsQuery = _Context.Payments
-                        .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                                    && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
-                        .Include(p => p.Student);
+             var totalAmount = payments.Sum(p => p.Amount);
 
-                    var totalItems = await paymentsQuery.CountAsync();
-                    var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+             ViewBag.TotalAmount = totalAmount;
 
-                    var payments = await paymentsQuery
-                        .OrderByDescending(p => p.PaymentDate)
-                        .Skip((page - 1) * pageSize)
-                        .Take(pageSize)
-                        .ToListAsync();
-
-                    var viewModel = new MonthlyPaymentsViewModel
-                    {
-                        Payments = payments,
-                        TotalAmount = payments.Sum(p => p.Amount),
-                        CurrentPage = page,
-                        TotalPages = totalPages,
-                        PageSize = pageSize
-                    };
-
-                    return View(viewModel);
-                }*/
+             if (payments.Any())
+             {
+                 return View(payments);
+             }
+             else
+             {
+                 // If no data is found, return an empty list to the view
+                 return View(new List<Payment>());
+             }
+         }*/
 
 
 
 
 
 
-        /*  **********???*/
-        /*  [HttpGet]
-          public ActionResult MonthlyPayments(int page = 1)
-          {
-              ViewBag.CurrentPage = page;
-              return View();
-          }
 
-          [HttpPost]
-          public async Task<ActionResult> MonthlyPayments(DateTime startMonth, DateTime endMonth, int page = 1)
-          {
-              int startYear = startMonth.Year;
-              int startMonthValue = startMonth.Month;
-              int endYear = endMonth.Year;
-              int endMonthValue = endMonth.Month;
 
-              var payments = await _Context.Payments
-                  .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                          && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
-                  .Include(p => p.Student)
-                  .ToListAsync();
-              const int PageSize = 4; // Number of items per page
-              var paginatedPayments = payments.Skip((page - 1) * PageSize).Take(PageSize).ToList();
-              var totalAmount = paginatedPayments.Sum(p => p.Amount);
 
-              ViewBag.TotalAmount = totalAmount;
-              ViewBag.CurrentPage = page;
-              ViewBag.TotalPages = (int)Math.Ceiling(payments.Count / (double)PageSize);
 
-              return View(paginatedPayments);
-          }*/
+
+
+
+
+
 
 
 
@@ -328,34 +322,73 @@ namespace SMS.Controllers
             return View(new RevenueViewModel());
         }
 
-      /*  [HttpPost]
-        public async Task<ActionResult> MonthlyRevenue(DateTime startMonth, DateTime endMonth)
-        {
-            int startYear = startMonth.Year;
-            int startMonthValue = startMonth.Month;
-            int endYear = endMonth.Year;
-            int endMonthValue = endMonth.Month;
+        /*  [HttpPost]
+          public async Task<ActionResult> MonthlyRevenue(DateTime startMonth, DateTime endMonth)
+          {
+              int startYear = startMonth.Year;
+              int startMonthValue = startMonth.Month;
+              int endYear = endMonth.Year;
+              int endMonthValue = endMonth.Month;
 
-            var totalPayments = await _Context.Payments
-                .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                            && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
-                .SumAsync(p => p.Amount);
-            var totalExpenditures = await _Context.Expenditures
-           .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
-                       && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
-           .SumAsync(e => e.Amount);
+              var totalPayments = await _Context.Payments
+                  .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
+                              && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
+                  .SumAsync(p => p.Amount);
+              var totalExpenditures = await _Context.Expenditures
+             .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
+                         && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
+             .SumAsync(e => e.Amount);
 
-            var revenue = totalPayments - totalExpenditures;
+              var revenue = totalPayments - totalExpenditures;
 
-            var model = new RevenueViewModel
-            {
-                StartMonth = startMonth,
-                EndMonth = endMonth,
-                TotalRevenue = revenue
-            };
+              var model = new RevenueViewModel
+              {
+                  StartMonth = startMonth,
+                  EndMonth = endMonth,
+                  TotalRevenue = revenue
+              };
 
-            return View(model);
-        }*/
+              return View(model);
+          }*/
+
+
+
+        /*[HttpPost]*/
+        /* public async Task<ActionResult> MonthlyRevenue(DateTime startMonth, DateTime endMonth)
+         {
+             int startYear = startMonth.Year;
+             int startMonthValue = startMonth.Month;
+             int endYear = endMonth.Year;
+             int endMonthValue = endMonth.Month;
+
+             var totalPayments = await _Context.Payments
+                 .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
+                             && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
+                 .SumAsync(p => p.Amount);
+
+
+             var totalExpenditures = await _Context.Expenditures
+                 .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
+                             && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
+                 .SumAsync(e => e.Amount);
+
+
+             var revenue = totalPayments - totalExpenditures;
+
+             var model = new RevenueViewModel
+             {
+                 StartMonth = startMonth,
+                 EndMonth = endMonth,
+                 TotalRevenue = revenue
+             };
+
+             return View(model);
+         }
+ */
+
+
+
+
 
 
 
@@ -372,12 +405,14 @@ namespace SMS.Controllers
                             && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
                 .SumAsync(p => p.Amount);
 
-
             var totalExpenditures = await _Context.Expenditures
                 .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
                             && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
                 .SumAsync(e => e.Amount);
 
+            var totalAllExpenditures = await _Context.Expenditures
+                .Where(e => e.Date.HasValue)
+                .SumAsync(e => e.Amount);
 
             var revenue = totalPayments - totalExpenditures;
 
@@ -385,11 +420,19 @@ namespace SMS.Controllers
             {
                 StartMonth = startMonth,
                 EndMonth = endMonth,
-                TotalRevenue = revenue
+                TotalRevenue = revenue,
+                TotalAllExpenditures = totalAllExpenditures
             };
 
             return View(model);
         }
+
+
+
+
+
+
+
 
 
 
