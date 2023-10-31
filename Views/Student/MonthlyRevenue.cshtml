@@ -20,20 +20,35 @@
     <h1 class="text-3xl font-bold mb-6">Monthly Revenue Report</h1>
 
     <div class="bg-white p-6 rounded shadow mb-4">
-        <h2 class="text-xl font-semibold mb-4">Current Month</h2>
-        <p>Total Payments for the Month: ₦@Model.TotalPaymentsForMonth</p>
-        <p>Total Expenditure for the Month: ₦@Model.TotalExpenditureForMonth</p>
+        <h2 class="text-xl font-semibold mb-2 border-b border-orange">Current Month</h2>
+        <div class="border-b border-orange py-1 flex justify-between">
+            <p class="">Total Payments for the Month:</p>
+            <p>₦@Model.TotalPaymentsForMonth</p>
+        </div>
+        <div class="flex justify-between pt-2">
+            <p>Total Expenditure for the Month:</p>
+            <p>₦@Model.TotalExpenditureForMonth</p>
+        </div>
     </div>
 
     <div class="bg-white p-6 rounded shadow mb-4">
-        <h2 class="text-xl font-semibold mb-4">Current Year</h2>
-        <p>Total Payments for the Year: ₦@Model.TotalPaymentsForYear</p>
-        <p>Total Expenditure for the Year: ₦@Model.TotalExpenditureForYear</p>
+        <h2 class="text-xl font-semibold mb-2 border-b border-orange">Current Year</h2>
+        <div class="border-b border-orange py-1 flex justify-between">
+            <p>Total Payments for the Year:</p>
+            <p>₦@Model.TotalPaymentsForYear</p>
+        </div>
+        <div class="flex justify-between pt-2">
+            <p>Total Expenditure for the Year:</p>
+            <p>₦@Model.TotalExpenditureForYear</p>
+        </div>
     </div>
 
     <div class="bg-white p-6 rounded shadow mb-4">
         <h2 class="text-xl font-semibold mb-4">All Time</h2>
-        <p>Total Expenditure: ₦@Model.TotalAllExpenditures</p>
+       <div class="flex justify-between">
+            <p>Total Expenditure:</p>
+            <p class="text-lg">₦@Model.TotalAllExpenditures</p>
+       </div>
     </div>
 </div>
 
