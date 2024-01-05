@@ -20,17 +20,12 @@ builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Student/Index"; // Specify your login page URL
-        options.AccessDeniedPath = "/Home/Index"; // Specify your access denied page URL
-        options.LogoutPath = "/Account/Logout"; // Set the logout path
+        options.LoginPath = "/Student/Index"; 
+        options.AccessDeniedPath = "/Home/Index"; 
+        options.LogoutPath = "/Account/Logout"; 
     });
 
-/*builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});*/
+
 
 
 

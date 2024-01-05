@@ -325,61 +325,6 @@ namespace SMS.Controllers
 
 
 
-        /* [HttpPost]
-         public async Task<ActionResult> MonthlyPayments(DateTime startMonth, DateTime endMonth)
-         {
-             // Set the end date to be the end of the selected day
-             endMonth = endMonth.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-
-             var payments = await _Context.Payments
-                 .Where(p => p.PaymentDate >= startMonth && p.PaymentDate <= endMonth)
-                 .Include(p => p.Student)
-                 .ToListAsync();
-
-             var totalAmount = payments.Sum(p => p.Amount);
-
-             ViewBag.TotalAmount = totalAmount;
-
-             if (payments.Any())
-             {
-                 return View(payments);
-             }
-             else
-             {
-                 // If no data is found, return an empty list to the view
-                 return View(new List<Payment>());
-             }
-         }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         [HttpGet]
         public async Task<IActionResult> MonthlyRevenue()
@@ -431,26 +376,6 @@ namespace SMS.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public ActionResult Expense()
         {
             return View();
@@ -471,16 +396,7 @@ namespace SMS.Controllers
         }
 
 
-        /*[HttpGet]
-        public async Task<ActionResult> GetExpense()
-        {
-
-            var appoint = await _Context.Expenditures.ToListAsync();
-            decimal totalAmount = appoint.Sum(e => e.Amount);
-
-            ViewBag.TotalAmount = totalAmount;
-            return View(appoint);
-        }*/
+     
 
         [HttpGet]
         public async Task<ActionResult> GetExpense(int page = 1)
