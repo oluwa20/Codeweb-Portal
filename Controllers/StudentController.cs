@@ -21,15 +21,18 @@ namespace SMS.Controllers
             _Context = context;
             _pdfConverter = pdfConverter;
         }
-
+        private bool StudentExists(Guid id)
+        {
+            return _Context.Students.Any(e => e.StudentId == id);
+        }
         public ActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult>Register(StudentViewModel studentdto)
+        public async Task<ActionResult> Register(StudentViewModel studentdto)
         {
-    
+
             Student student = new Student()
             {
                 StudentName = studentdto.StudentName,
@@ -43,20 +46,7 @@ namespace SMS.Controllers
         }
 
 
-        /* [HttpGet]
-         public async Task<ActionResult> GetStudents(string searchQuery)
-         {
-             IQueryable<Student> students = _Context.Students;
 
-             if (!string.IsNullOrEmpty(searchQuery))
-             {
-                 // Filter students based on the search query
-                 students = students.Where(s => s.StudentName.Contains(searchQuery));
-             }
-
-             var studentList = await students.ToListAsync();
-             return View(studentList);
-         }*/
 
         [HttpGet]
         public async Task<ActionResult> GetStudents(string searchQuery, int page = 1)
@@ -89,8 +79,61 @@ namespace SMS.Controllers
 
 
 
+
+
         [HttpGet]
-        public async Task<ActionResult> AddPayment (Guid studentId)
+        public async Task<IActionResult> Edit(Guid? studentId)
+        {
+            if (studentId == null || studentId == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var student = await _Context.Students.FindAsync(studentId);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid? studentId, [Bind("StudentId,StudentName,Email,Phone,Address")] Student student)
+        {
+            if (studentId == null || studentId == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            if (studentId != student.StudentId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _Context.Update(student);
+                    await _Context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                    throw;
+                }
+            }
+
+            return View(student);
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> AddPayment(Guid studentId)
         {
             var student = await _Context.Students.FirstOrDefaultAsync
                 (s => s.StudentId == studentId);
@@ -100,10 +143,10 @@ namespace SMS.Controllers
                 return NotFound();
             }
             var paymentViewModel = new PaymentViewModel { StudentId = studentId };
-            
+
 
             return View(paymentViewModel);
-        }    
+        }
 
         [HttpPost]
         public async Task<ActionResult> AddPayment(PaymentViewModel paymentViewModel)
@@ -117,6 +160,7 @@ namespace SMS.Controllers
 
             var payment = new Payment
             {
+                PaymentId = Guid.NewGuid(),
                 Amount = paymentViewModel.Amount,
                 PaymentDate = DateTime.Now,
                 Date = paymentViewModel.Date
@@ -125,33 +169,19 @@ namespace SMS.Controllers
             student.Payments.Add(payment);
 
             await _Context.SaveChangesAsync();
+            var paymentHistoryViewModel = new PaymentHistoryViewModel
+            {
+                StudentId = student.StudentId,
+                StudentName = student.StudentName,
+                Payments = student.Payments.ToList(),
+                TotalAmount = student.Payments.Sum(p => p.Amount)
+            };
 
 
-
-            return RedirectToAction("GetStudents");
+            return RedirectToAction("");
         }
 
-        /*        [HttpGet]
-                public async Task<ActionResult> PaymentHistory(Guid studentId)
-                {
-                    var student = await _Context.Students.Include(s => s.Payments).FirstOrDefaultAsync(s => s.StudentId == studentId);
 
-                    if (student == null)
-                    {
-                        return NotFound();
-                    }
-                    var totalAmount = student.Payments.Sum(p => p.Amount);
-                    var paymentHistoryViewModel = new PaymentHistoryViewModel
-                    {
-                        StudentId = student.StudentId,
-                        StudentName = student.StudentName,
-                        Payments = student.Payments,
-                        TotalAmount = totalAmount
-                    };
-
-                    return View(paymentHistoryViewModel);
-
-                }*/
 
         [HttpGet]
         public async Task<ActionResult> PaymentHistory(Guid studentId, int page = 1)
@@ -180,13 +210,13 @@ namespace SMS.Controllers
             {
                 StudentId = student.StudentId,
                 StudentName = student.StudentName,
-                Payments = payments,
+                Payments = student.Payments.OrderByDescending(p => p.PaymentDate).ToList(),
                 TotalAmount = totalAmount
             };
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = (int)Math.Ceiling(student.Payments.Count / (double)PageSize);
-            
+
 
             return View(paymentHistoryViewModel);
         }
@@ -194,6 +224,35 @@ namespace SMS.Controllers
 
 
 
+        public async Task<JsonResult> Receipt(Guid studentId)
+        {
+            var student = await _Context.Students
+                .Include(s => s.Payments)
+                .FirstOrDefaultAsync(s => s.StudentId == studentId);
+
+            if (student == null)
+            {
+                return Json(null);
+            }
+
+            var latestPayment = student.Payments.OrderByDescending(p => p.PaymentDate).FirstOrDefault();
+
+            if (latestPayment == null)
+            {
+                return Json(null);
+            }
+
+            var paymentDetails = new
+            {
+                TransactionId = latestPayment.PaymentId,
+                AmountPaid = latestPayment.Amount,
+                MonthPaid = latestPayment.Date?.ToString("MMMM yyyy"),
+                StudentName = student.StudentName,
+                ReceiptDateTime = latestPayment.PaymentDate.ToString("yyyy-MM-dd HH:mm:ss")
+            };
+
+            return Json(paymentDetails);
+        }
 
 
 
@@ -212,7 +271,7 @@ namespace SMS.Controllers
         [HttpGet]
         public async Task<ActionResult> MonthlyPayments()
         {
-            
+
             DateTime startMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime endMonth = startMonth.AddMonths(1).AddDays(-1); // Last day of the current month
 
@@ -316,75 +375,9 @@ namespace SMS.Controllers
 
 
 
-        /* [HttpGet]
-         public ActionResult MonthlyRevenue()
-         {
-             return View(new RevenueViewModel());
-         }*/
-
-        /*  [HttpPost]
-          public async Task<ActionResult> MonthlyRevenue(DateTime startMonth, DateTime endMonth)
-          {
-              int startYear = startMonth.Year;
-              int startMonthValue = startMonth.Month;
-              int endYear = endMonth.Year;
-              int endMonthValue = endMonth.Month;
-
-              var totalPayments = await _Context.Payments
-                  .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                              && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
-                  .SumAsync(p => p.Amount);
-              var totalExpenditures = await _Context.Expenditures
-             .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
-                         && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
-             .SumAsync(e => e.Amount);
-
-              var revenue = totalPayments - totalExpenditures;
-
-              var model = new RevenueViewModel
-              {
-                  StartMonth = startMonth,
-                  EndMonth = endMonth,
-                  TotalRevenue = revenue
-              };
-
-              return View(model);
-          }*/
 
 
 
-        /*[HttpPost]*/
-        /* public async Task<ActionResult> MonthlyRevenue(DateTime startMonth, DateTime endMonth)
-         {
-             int startYear = startMonth.Year;
-             int startMonthValue = startMonth.Month;
-             int endYear = endMonth.Year;
-             int endMonthValue = endMonth.Month;
-
-             var totalPayments = await _Context.Payments
-                 .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                             && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
-                 .SumAsync(p => p.Amount);
-
-
-             var totalExpenditures = await _Context.Expenditures
-                 .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
-                             && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
-                 .SumAsync(e => e.Amount);
-
-
-             var revenue = totalPayments - totalExpenditures;
-
-             var model = new RevenueViewModel
-             {
-                 StartMonth = startMonth,
-                 EndMonth = endMonth,
-                 TotalRevenue = revenue
-             };
-
-             return View(model);
-         }
- */
 
 
 
@@ -443,129 +436,12 @@ namespace SMS.Controllers
 
 
 
-        /* [HttpPost]
-         public async Task<ActionResult> MonthlyRevenue(DateTime startMonth, DateTime endMonth)
-         {
-             int startYear = startMonth.Year;
-             int startMonthValue = startMonth.Month;
-             int endYear = endMonth.Year;
-             int endMonthValue = endMonth.Month;
-
-             var totalPayments = await _Context.Payments
-                 .Where(p => p.PaymentDate.Year >= startYear && p.PaymentDate.Year <= endYear
-                             && p.PaymentDate.Month >= startMonthValue && p.PaymentDate.Month <= endMonthValue)
-                 .SumAsync(p => p.Amount);
-
-             var totalExpenditures = await _Context.Expenditures
-                 .Where(e => e.Date.HasValue && e.Date.Value.Year >= startYear && e.Date.Value.Year <= endYear
-                             && e.Date.Value.Month >= startMonthValue && e.Date.Value.Month <= endMonthValue)
-                 .SumAsync(e => e.Amount);
-
-             var totalAllExpenditures = await _Context.Expenditures
-                 .Where(e => e.Date.HasValue)
-                 .SumAsync(e => e.Amount);
-
-             var revenue = totalPayments - totalExpenditures;
-
-             var model = new RevenueViewModel
-             {
-                 StartMonth = startMonth,
-                 EndMonth = endMonth,
-                 TotalRevenue = revenue,
-                 TotalAllExpenditures = totalAllExpenditures
-             };
-
-             return View(model);
-         }
- */
 
 
-        /* [HttpGet]
-         public async Task<ActionResult> MonthlyRevenue()
-         {
-             DateTime currentDate = DateTime.Now;
-             DateTime startMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
-             DateTime endMonth = startMonth.AddMonths(1).AddDays(-1);
 
-             // Calculate total revenue for the current month
-             var totalPayments = await _Context.Payments
-                 .Where(p => p.PaymentDate >= startMonth && p.PaymentDate <= endMonth)
-                 .SumAsync(p => p.Amount);
 
-             // Calculate total revenue for the current year
-             DateTime startYear = new DateTime(currentDate.Year, 1, 1);
-             DateTime endYear = new DateTime(currentDate.Year, 12, 31);
-             var totalYearPayments = await _Context.Payments
-                 .Where(p => p.PaymentDate >= startYear && p.PaymentDate <= endYear)
-                 .SumAsync(p => p.Amount);
 
-             var totalExpenditures = await _Context.Expenditures
-                 .Where(e => e.Date.HasValue && e.Date.Value >= startMonth && e.Date.Value <= endMonth)
-                 .SumAsync(e => e.Amount);
 
-             var totalAllExpenditures = await _Context.Expenditures
-                 .Where(e => e.Date.HasValue)
-                 .SumAsync(e => e.Amount);
-
-             var revenue = totalPayments - totalExpenditures;
-             var yearRevenue = totalYearPayments - totalExpenditures;
-
-             var model = new RevenueViewModel
-             {
-                 StartMonth = startMonth,
-                 EndMonth = endMonth,
-                 TotalRevenue = revenue,
-                 TotalYearRevenue = yearRevenue,
-                 TotalAllExpenditures = totalAllExpenditures
-             };
-
-             return View(model);
-         }*/
-
-        /*[HttpGet]
-        public async Task<IActionResult>
-  MonthlyRevenue()
-        {
-            DateTime currentDate = DateTime.Now;
-            DateTime startMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
-            DateTime endMonth = startMonth.AddMonths(1).AddDays(-1);
-
-            var totalPayments = await _Context.Payments
-            .Where(p => p.PaymentDate >= startMonth && p.PaymentDate <= endMonth)
-            .SumAsync(p => p.Amount);
-
-            var startYear = new DateTime(currentDate.Year, 1, 1);
-            var endYear = new DateTime(currentDate.Year, 12, 31);
-
-            var totalYearPayments = await _Context.Payments
-            .Where(p => p.PaymentDate >= startYear && p.PaymentDate <= endYear)
-            .SumAsync(p => p.Amount);
-
-            var totalExpenditureForMonth = await _Context.Expenditures
-            .Where(e => e.Date.HasValue && e.Date.Value >= startMonth && e.Date.Value <= endMonth)
-            .SumAsync(e => e.Amount);
-
-            var totalExpenditureForYear = await _Context.Expenditures
-            .Where(e => e.Date.HasValue && e.Date.Value.Year == currentDate.Year)
-            .SumAsync(e => e.Amount);
-
-            var totalAllExpenditures = await _Context.Expenditures
-            .Where(e => e.Date.HasValue)
-            .SumAsync(e => e.Amount);
-
-            var model = new RevenueViewModel
-            {
-                StartMonth = startMonth,
-                EndMonth = endMonth,
-                TotalPaymentsForMonth = totalPayments,
-                TotalPaymentsForYear = totalYearPayments,
-                TotalExpenditureForMonth = totalExpenditureForMonth,
-                TotalExpenditureForYear = totalExpenditureForYear,
-                TotalAllExpenditures = totalAllExpenditures
-            };
-
-            return View(model);
-        }*/
 
 
 
@@ -580,14 +456,14 @@ namespace SMS.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Expense (ExpenditureViewModel expense)
+        public async Task<ActionResult> Expense(ExpenditureViewModel expense)
         {
             Expenditure debit = new Expenditure()
             {
                 Expenses = expense.Expenses,
                 Amount = expense.Amount,
-               /* Description =expense.Description,
-                Date = expense.Date*/
+                /* Description =expense.Description,
+                 Date = expense.Date*/
             };
             await _Context.Expenditures.AddAsync(debit);
             await _Context.SaveChangesAsync();
@@ -625,5 +501,7 @@ namespace SMS.Controllers
 
 
     }
+
+
 }
 

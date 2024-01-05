@@ -2,7 +2,7 @@
 {
     public class Payment
     {
-        public int PaymentId { get; set; }
+        public Guid PaymentId { get; set; }
         public decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; }
         public DateTime? Date { get; set; }

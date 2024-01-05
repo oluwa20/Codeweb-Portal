@@ -25,12 +25,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/Account/Logout"; // Set the logout path
     });
 
-builder.Services.AddAuthorization(options =>
+/*builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
-});
+});*/
 
 
 
@@ -57,3 +57,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Home}/{id?}");
 
 app.Run();
+
+app.UseAuthorization();
+
+

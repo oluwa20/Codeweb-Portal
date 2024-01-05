@@ -1,0 +1,86 @@
+﻿@model SMS.Models.Student
+
+@{
+    ViewData["Title"] = "Edit Student";
+    Layout = "_LayoutLoggedIn";
+}
+
+<div class="max-w-md mx-auto mt-8 p-8 border border-gray-300 rounded-lg shadow-lg bg-white">
+<h1 class="text-3xl font-semibold mb-6">Edit Student</h1>
+
+<form asp-action="Edit" method="post" class="max-w-md mx-auto">
+    <input type="hidden" asp-for="StudentId" />
+
+    <div class="mb-4">
+        <label for="StudentName" class="block text-sm font-medium text-gray-600">Student Name</label>
+        <input asp-for="StudentName" id="StudentName" class="mt-1 p-2 w-full border rounded focus:outline-none focus:ring focus:border-orange-600" />
+        <span asp-validation-for="StudentName" class="text-sm text-red-500"></span>
+    </div>
+
+    <div class="mb-4">
+        <label for="Email" class="block text-sm font-medium text-gray-600">Email</label>
+        <input asp-for="Email" id="Email" class="mt-1 p-2 w-full border rounded focus:outline-none focus:ring focus:border-orange-600" />
+        <span asp-validation-for="Email" class="text-sm text-red-500"></span>
+    </div>
+
+    <div class="mb-4">
+        <label for="Phone" class="block text-sm font-medium text-gray-600">Phone</label>
+        <input asp-for="Phone" id="Phone" class="mt-1 p-2 w-full border rounded focus:outline-none focus:ring focus:border-orange-600" />
+        <span asp-validation-for="Phone" class="text-sm text-red-500"></span>
+    </div>
+
+    <div class="mb-6">
+        <label for="Address" class="block text-sm font-medium text-gray-600">Address</label>
+        <input asp-for="Address" id="Address" class="mt-1 p-2 w-full border rounded focus:outline-none focus:ring focus:border-orange-600" />
+        <span asp-validation-for="Address" class="text-sm text-red-500"></span>
+    </div>
+
+    <button type="submit" class="w-full bg-orange-600 text-white py-2 px-4 rounded hover:bg-orange-700 focus:outline-none focus:ring focus:border-orange-700">
+        Save
+    </button>
+</form>
+</div>
+
+
+@* @model SMS.Models.Student
+@{
+    ViewData["Title"] = "EditStudent";
+    Layout = "_LayoutLoggedIn";
+}
+
+<div class="max-w-md mx-auto mt-8 p-8 border border-gray-300 rounded-lg shadow-lg bg-white">
+
+    <h2 class="text-2xl font-semibold mb-6 text-orange-600">Edit Student</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="StudentId" name="StudentId" />
+        <div class="mb-4">
+            <label for="studentName" class="block text-sm font-medium text-gray-600">Student Name</label>
+            <input type="text" id="studentName" asp-for="StudentName" name="StudentName" value="@Model.StudentName"
+                   class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-orange-200 focus:border-orange-400">
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
+            <input type="email" id="email" asp-for="Email" name="Email" value="@Model.Email"
+                   class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-orange-200 focus:border-orange-400">
+        </div>
+
+        <div class="mb-4">
+            <label for="phone" class="block text-sm font-medium text-gray-600">Phone</label>
+            <input type="tel" id="phone" asp-for="Phone" name="Phone" value="@Model.Phone"
+                   class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-orange-200 focus:border-orange-400">
+        </div>
+
+        <div class="mb-4">
+            <label for="address" class="block text-sm font-medium text-gray-600">Address</label>
+            <input type="text" id="address" asp-for="Address" name="Address" value="@Model.Address"
+                   class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-orange-200 focus:border-orange-400">
+        </div>
+
+        <button type="submit" class="bg-orange-600 text-white py-2 px-4 rounded-md hover:bg-orange-700 focus:outline-none focus:ring focus:ring-orange-200">
+            Save
+        </button>
+    </form>
+</div> 
+ *@
