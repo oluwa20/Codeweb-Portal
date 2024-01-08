@@ -1,85 +1,54 @@
-﻿@{
+﻿@model SMS.ViewModels.PaymentViewModel
+
+@{
     ViewData["Title"] = "Receipt";
-    Layout = "_LayoutLoggedIn";
+}
+@{
+    Layout = "_LayoutReceipt";
 }
 
-<div class="container mx-auto p-4">
-    <h1 class="text-3xl font-semibold mb-4">Receipt</h1>
-    <div class="mb-4">
-        <p><span class="font-semibold">Transaction ID:</span> <span id="transactionId"></span></p>
-        <p><span class="font-semibold">Amount Paid:</span> $<span id="amountPaid"></span></p>
-        <p><span class="font-semibold">Month Paid For:</span> <span id="monthPaid"></span></p>
-        <p><span class="font-semibold">Name of the Student:</span> <span id="studentName"></span></p>
-        <p><span class="font-semibold">Date and Time:</span> <span id="receiptDateTime"></span></p>
-    </div>
-    <button class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 cursor-pointer" onclick="printReceipt()">Print Receipt</button>
-</div>
-
-<script>
-    var studentId = '<%= ViewBag.StudentId %>';
-
-    async function fillReceiptData() {
-        try {
-            const response = await fetch(`/Student/Receipt?studentId=${studentId}`);
-            const paymentDetails = await response.json();
-
-            if (paymentDetails) {
-                document.getElementById("transactionId").innerText = paymentDetails.TransactionId;
-                document.getElementById("amountPaid").innerText = paymentDetails.AmountPaid;
-                document.getElementById("monthPaid").innerText = paymentDetails.MonthPaid;
-                document.getElementById("studentName").innerText = paymentDetails.StudentName;
-                document.getElementById("receiptDateTime").innerText = paymentDetails.ReceiptDateTime;
-            } else {
-                console.error('Payment details not found.');
-            }
-        } catch (error) {
-            console.error('Error fetching payment details:', error);
-        }
-    }
-
-    function printReceipt() {
-        window.print();
-    }
-
-    window.onload = fillReceiptData;
-</script>
 
 
+@* <body class="font-sans"> *@
 
+    <div class="flex flex-col mx-6 lg:mx-20 lg:w-8/12 border border-gray-300 rounded-md p-6 bg-orange-600 text-orange-600 shadow-lg">
 
+        <h1 class="my-10 text-2xl font-semibold">Receipt</h1>
 
-
-@* @model SMS.ViewModels.PaymentHistoryViewModel
-
-<div class="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg mt-10">
-    <h1 class="text-3xl font-semibold text-orange-600 mb-4">Receipt</h1>
-
-    <div class="mb-4">
-        <p class="text-gray-700"><strong>Student ID:</strong> @Model.StudentId</p>
-        <p class="text-gray-700"><strong>Student Name:</strong> @Model.StudentName</p>
-        <p class="text-gray-700"><strong>Total Amount Paid:</strong> $@Model.TotalAmount</p>
-    </div>
-
-    <h2 class="text-xl font-semibold text-orange-600 mb-2">Payment Details</h2>
-    @foreach (var payment in Model.Payments)
-    {
-        <div class="mb-2">
-            <p class="text-gray-700"><strong>Payment ID:</strong> @payment.PaymentId</p>
-            <p class="text-gray-700"><strong>Amount:</strong> $@payment.Amount</p>
-            <p class="text-gray-700"><strong>Payment Date:</strong> @payment.PaymentDate</p>
+        <div class="mb-4">
+            <p class="mb-2 text-lg">Transaction ID: <strong class="text-orange-600">@Model.TransactionId</strong></p>
+            <p class="mb-2 text-lg">Amount Paid: ₦<strong class="text-orange-600">@string.Format("{0:#,0}", Model.AmountPaid)</strong></p>
+            <p class="mb-2 text-lg">Month Paid: <strong class="text-orange-600">@Model.MonthPaid</strong></p>
+            <p class="mb-2 text-lg">Student Name: <strong class="text-orange-600">@Model.StudentName</strong></p>
+        
+            <p class="mb-2 text-lg">Receipt Date: <strong class="text-orange-600">@Model.ReceiptDateTime</strong></p>
+            
         </div>
-        <hr class="my-2 border-t border-gray-300">
-    }
 
-    <button class="bg-orange-600 text-white hover:bg-orange-700 py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline"
-            onclick="printReceipt()">
-        Print Receipt
-    </button>
-</div>
+  
+ 
+   
 
-<script>
-    function printReceipt() {
-        window.print();
-    }
-</script>
- *@
+        
+    <button id="printButton" class="bg-orange-600 text-orange-600 py-2 px-4 rounded mt-4 lg:mt-10 lg:text-[18px] lg:px-20 lg:font-bold hover:scale-95 hover:shadow-lg" onclick="printReceipt()">Print Receipt</button>
+
+    <script>
+        function printReceipt() {
+           
+            var printButton = document.getElementById("printButton");
+            if (printButton) {
+                printButton.style.display = "none";
+
+                window.print();
+
+             
+                printButton.style.display = "block";
+            }
+        }
+    </script>
+
+    </div>
+   
+
+@* </body> *@
+</html>

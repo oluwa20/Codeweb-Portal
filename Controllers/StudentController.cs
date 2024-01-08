@@ -151,36 +151,64 @@ namespace SMS.Controllers
         [HttpPost]
         public async Task<ActionResult> AddPayment(PaymentViewModel paymentViewModel)
         {
-            var student = await _Context.Students.FirstOrDefaultAsync(s => s.StudentId == paymentViewModel.StudentId);
-
-            if (student == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+               
+                var payment = new Payment
+                {
+                    Amount = paymentViewModel.Amount,
+                    PaymentDate = paymentViewModel.PaymentDate == default ? DateTime.Now : paymentViewModel.PaymentDate,
+                    Date = paymentViewModel.Date == default ? DateTime.Now : paymentViewModel.Date,
+                    StudentId = paymentViewModel.StudentId,
+                
+                };
+
+                _Context.Payments.Add(payment);
+                await _Context.SaveChangesAsync();
+
+               
+                return RedirectToAction("PaymentSuccess", PaymentHistory);
             }
 
-            var payment = new Payment
-            {
-                PaymentId = Guid.NewGuid(),
-                Amount = paymentViewModel.Amount,
-                PaymentDate = DateTime.Now,
-                Date = paymentViewModel.Date
-            };
-
-            student.Payments.Add(payment);
-
-            await _Context.SaveChangesAsync();
-            var paymentHistoryViewModel = new PaymentHistoryViewModel
-            {
-                StudentId = student.StudentId,
-                StudentName = student.StudentName,
-                Payments = student.Payments.ToList(),
-                TotalAmount = student.Payments.Sum(p => p.Amount)
-            };
-
-
-            return RedirectToAction("");
+         
+            return View(paymentViewModel);
         }
 
+
+        /*  [HttpPost]
+          public async Task<ActionResult> AddPayment(PaymentViewModel paymentViewModel)
+
+          {
+              var student = await _Context.Students.FirstOrDefaultAsync(s => s.StudentId == paymentViewModel.StudentId);
+
+              if (student == null)
+              {
+                  return NotFound();
+              }
+
+              var payment = new Payment
+              {
+                  PaymentId = Guid.NewGuid(),
+                  Amount = paymentViewModel.Amount,
+                  PaymentDate = DateTime.Now,
+                  Date = paymentViewModel.Date
+              };
+
+              student.Payments.Add(payment);
+
+              await _Context.SaveChangesAsync();
+              var paymentHistoryViewModel = new PaymentHistoryViewModel
+              {
+                  StudentId = student.StudentId,
+                  StudentName = student.StudentName,
+                  Payments = student.Payments.ToList(),
+                  TotalAmount = student.Payments.Sum(p => p.Amount)
+              };
+
+
+              return RedirectToAction("");
+          }
+  */
 
 
         [HttpGet]
@@ -224,37 +252,61 @@ namespace SMS.Controllers
 
 
 
-        public async Task<JsonResult> Receipt(Guid studentId)
+        /* public async Task<JsonResult> Receipt(Guid studentId)
+         {
+             var student = await _Context.Students
+                 .Include(s => s.Payments)
+                 .FirstOrDefaultAsync(s => s.StudentId == studentId);
+
+             if (student == null)
+             {
+                 return Json(null);
+             }
+
+             var latestPayment = student.Payments.OrderByDescending(p => p.PaymentDate).FirstOrDefault();
+
+             if (latestPayment == null)
+             {
+                 return Json(null);
+             }
+
+             var paymentDetails = new 
+             {
+                 TransactionId = latestPayment.PaymentId,
+                 AmountPaid = latestPayment.Amount,
+                 MonthPaid = latestPayment.Date?.ToString("MMMM yyyy"),
+                 StudentName = student.StudentName,
+                 ReceiptDateTime = latestPayment.PaymentDate.ToString("yyyy-MM-dd HH:mm:ss")
+             };
+
+             return Json(paymentDetails);
+         }*/
+
+
+
+
+        public IActionResult Receipt(Guid paymentId)
         {
-            var student = await _Context.Students
-                .Include(s => s.Payments)
-                .FirstOrDefaultAsync(s => s.StudentId == studentId);
+            var payment = _Context.Payments
+                .Include(p => p.Student)
+                .FirstOrDefault(p => p.PaymentId == paymentId);
 
-            if (student == null)
+            if (payment == null)
             {
-                return Json(null);
+                return NotFound();
             }
 
-            var latestPayment = student.Payments.OrderByDescending(p => p.PaymentDate).FirstOrDefault();
-
-            if (latestPayment == null)
+            var receiptViewModel = new PaymentViewModel
             {
-                return Json(null);
-            }
-
-            var paymentDetails = new
-            {
-                TransactionId = latestPayment.PaymentId,
-                AmountPaid = latestPayment.Amount,
-                MonthPaid = latestPayment.Date?.ToString("MMMM yyyy"),
-                StudentName = student.StudentName,
-                ReceiptDateTime = latestPayment.PaymentDate.ToString("yyyy-MM-dd HH:mm:ss")
+                TransactionId = payment.PaymentId,
+                AmountPaid = payment.Amount,
+                MonthPaid = payment.Date?.ToString("MMMM yyyy"),
+                StudentName = payment.Student.StudentName,
+                ReceiptDateTime = payment.PaymentDate.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
-            return Json(paymentDetails);
+            return View(receiptViewModel);
         }
-
-
 
 
 

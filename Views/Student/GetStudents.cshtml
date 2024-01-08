@@ -104,8 +104,9 @@
                 <div> @Html.DisplayFor(modelItem => student.Email)</div>
                 <div>@Html.DisplayFor(modelItem => student.Address)</div>
             <div>
-                    <a asp-action="AddPayment" asp-route-studentId="@student.StudentId" class="text-primary hover:underline">Add Payment</a> |
-                    <a asp-action="PaymentHistory" asp-route-studentId="@student.StudentId" class="text-primary hover:underline">Payment History</a>
+                    <a asp-action="AddPayment" asp-route-studentId="@student.StudentId" class="text-orange-600 hover:underline">Add Payment</a> |
+                    <a asp-action="PaymentHistory" asp-route-studentId="@student.StudentId" class="text-orange-600 hover:underline">Payment History</a>
+                  
                 </div>
         </div>
 

@@ -9,5 +9,6 @@ namespace SMS.ViewModels
         public List<Payment> Payments { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime? Date { get; set; }
+        public Payment Payment { get; internal set; }
     }
 }

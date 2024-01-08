@@ -17,5 +17,10 @@ namespace SMS.ViewModels
         [Display(Name = "Payment Date")]
         [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
+        public Guid TransactionId { get; set; }
+        public decimal AmountPaid { get; set; }
+        public string MonthPaid { get; set; }
+        public string StudentName { get; set; }
+        public string ReceiptDateTime { get; set; }
     }
 }

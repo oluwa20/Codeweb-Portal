@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="~/assets/plugins/tailwind/tailwind.js"></script>
+    <link rel="stylesheet" href="~/assets/plugins/fonts/font.css" />
+    <link rel="stylesheet" href="~/assets/style/style.css" />
+
+
+
+    <!-- Tailwind Customization -->
+    <script>
+        tailwind.config = {
+            theme: {
+                colors: {
+                    primary: "#F67516",
+                    secondary: "#FEB52B",
+                    white: "#FFFFFF",
+                    black: "#000000",
+                    grey: "#E3E3E2",
+                },
+                screens: {
+                    sm: "550px",
+                    // => media (min-width: 550px) { ... }
+
+                    md: "800px",
+                    // => media (min-width: 700px) { ... }
+
+                    lg: "1024px",
+                    // => media (min-width: 1024px) { ... }
+
+                    xl: "1280px",
+                    // => media (min-width: 1280px) { ... }
+
+                    "2xl": "1536px",
+                    // => media (min-width: 1536px) { ... }
+                },
+            },
+        };
+    </script>
+
+
+
+
+</head>
+<body class="bg-white px-4 sm:px-0 overflow-x-hidden text-orange-600 font-sans">
+    <section class="block">
+        <div class="md:flex md:justify-between xl:px-40 md:mt-12 md:px-2">
+            <div class="w-96 h-56 rotate-12 opacity-10 blur-xl absolute bg-[#efd3a0] hidden md:flex"></div>
+            <div class="md:flex md:items-center">
+                <img src="" class="" />
+                <p class="text-7xl text-primary first-letter:text-16xl first-letter:font-semibold py-2 md:py-0">
+                    <span class="text-9xl font-extrabold">C</span>odeweb
+                </p>
+
+               @*  <p class="text-6xl text-primary first-letter:text-16xl first-letter:font-semibold py-2 md:py-0">
+                    Codeweb
+                </p> *@
+            </div>
+          
+        </div>
+
+        @RenderBody()
+
+
+ @*        @await RenderSectionAsync("Scripts", required: false) *@
+</body>
+</html>
