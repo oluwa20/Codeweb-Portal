@@ -43,7 +43,8 @@
 <section class="mx-3 py-4 md:py-16 md:px-24">
     <div class="float-right">
         <h2 colspan="2"><strong>Total Amount:</strong></h2>
-        <h2 class="text-2xl"><strong>@Model.TotalAmount.ToString(" ₦0")</strong></h2>
+        <h2 class="text-2xl"><strong> ₦@string.Format("{0:#,0}", Model.TotalAmount)</strong></h2>
+        
     </div>
     <div class=" md:py-36">
         <h1 class="text-xl font-bold pt-10 mb-2 md:pt-2 md:mb-7 md:text-4xl">Payment History for @Model.StudentName</h1>

@@ -50,7 +50,9 @@
 
             <div class="">
                 <p class="text-xl text-primary font-bold">Total Amount:</p>
-                <strong>@ViewBag.TotalAmount.ToString(" ₦0")</strong>
+                <strong>
+                    <strong>@ViewBag.TotalAmount.ToString("C0")</strong>
+                </strong>
             </div>
 
             @if (ViewBag.TotalPages > 1)
