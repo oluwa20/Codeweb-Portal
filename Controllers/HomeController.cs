@@ -42,21 +42,21 @@ namespace SMS.Controllers
 
                 if (user != null)
                 {
-                    // Create claims for the authenticated user
+                   
                     var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                // Add more claims if needed
+        
             };
 
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal = new ClaimsPrincipal(identity);
 
-                    // Sign in the user
+            
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    // Redirect to the appropriate page after successful login
-                    return RedirectToAction("Index", "Student");
+                  
+                    return RedirectToAction("~/Student/Index");
                 }
                 else
                 {
