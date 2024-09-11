@@ -10,11 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-/*builder.Services.AddDbContext<SmsDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));*/
-
 builder.Services.AddDbContext<SmsDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Then-DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+/*builder.Services.AddDbContext<SmsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Then-DefaultConnection")));*/
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 // Register DinkToPdf converter

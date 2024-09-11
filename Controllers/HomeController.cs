@@ -55,8 +55,9 @@ namespace SMS.Controllers
             
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                  
-                    return RedirectToAction("~/Student/Index");
+
+                    return RedirectToAction("Index", "Student");
+
                 }
                 else
                 {
