@@ -252,6 +252,69 @@ namespace SMS.Controllers
 
 
 
+        [HttpGet]
+        public async Task<ActionResult> EditPayment(Guid paymentId)
+        {
+            var payment = await _Context.Payments
+                .Include(p => p.Student)
+                .FirstOrDefaultAsync(p => p.PaymentId == paymentId);
+
+            if (payment == null)
+            {
+                return NotFound();
+            }
+
+            var editPaymentViewModel = new EditPaymentViewModel
+            {
+                PaymentId = payment.PaymentId,
+                Amount = payment.Amount,
+                PaymentDate = payment.PaymentDate,
+                Date = payment.Date,
+                StudentId = payment.Student.StudentId,
+                StudentName = payment.Student.StudentName
+            };
+
+            return View(editPaymentViewModel);
+        }
+
+
+
+
+        [HttpPost]
+        public async Task<ActionResult> EditPayment(EditPaymentViewModel editPaymentViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(editPaymentViewModel);
+            }
+
+            var payment = await _Context.Payments
+                .Include(p => p.Student)
+                .FirstOrDefaultAsync(p => p.PaymentId == editPaymentViewModel.PaymentId);
+
+            if (payment == null)
+            {
+                return NotFound();
+            }
+
+            payment.Amount = editPaymentViewModel.Amount;
+            payment.PaymentDate = editPaymentViewModel.PaymentDate;
+            payment.Date = editPaymentViewModel.Date;
+
+            await _Context.SaveChangesAsync();
+
+            return RedirectToAction("PaymentHistory", new { studentId = payment.Student.StudentId });
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -290,14 +353,14 @@ namespace SMS.Controllers
         public async Task<ActionResult> MonthlyPayments(string startMonth, string endMonth, int page = 1)
         {
             DateTime startDate = DateTime.Parse(startMonth);
-            DateTime endDate = DateTime.Parse(endMonth).AddDays(1).AddTicks(-1); // Include end date in the query
+            DateTime endDate = DateTime.Parse(endMonth).AddDays(1).AddTicks(-1); 
 
-            const int PageSize = 3; // Number of items per page
+            const int PageSize = 3; 
 
             var payments = await _Context.Payments
                 .Where(p => p.PaymentDate >= startDate && p.PaymentDate <= endDate)
                 .Include(p => p.Student)
-                .OrderByDescending(p => p.PaymentDate) // Order by payment date, adjust as needed
+                .OrderByDescending(p => p.PaymentDate) 
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();

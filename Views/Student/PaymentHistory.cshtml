@@ -65,7 +65,10 @@
                             <td class="px-4 py-2">@payment.PaymentDate.ToShortDateString()</td>
                             <td class="px-4 py-2">@(payment.Date.HasValue ? payment.Date.Value.ToString("yyyy-MM-dd") : "N/A")</td>
                             <td class="px-4 py-2">@payment.Amount.ToString( " ₦0")</td>
-                            <td>  <a asp-action="Receipt" asp-route-paymentId="@payment.PaymentId" class="text-orange-600 hover:underline">Print Receipt</a></td>
+                            <td>  
+                                <a asp-action="Receipt" asp-route-paymentId="@payment.PaymentId" class="text-orange-600 hover:underline">Print Receipt</a> ||
+                                <a asp-action="EditPayment" asp-route-paymentId="@payment.PaymentId" class="text-orange-600 hover:underline">Edit Payment</a>
+                                </td>
                     </tr>
                   }
                     

@@ -67,9 +67,19 @@
                         <td class="px-4 py-2">
                             @Html.DisplayFor(modelItem => student.Address)
                         </td>
-                        <td class="px-4 py-2">
-                            <a asp-action="AddPayment" asp-route-studentId="@student.StudentId" class="text-primary hover:underline">Add Payment</a> |
-                            <a asp-action="PaymentHistory" asp-route-studentId="@student.StudentId" class="text-primary hover:underline">Payment History</a>
+                     
+                        <td class="px-4 py-2 " >
+                            <i class="fas fa-ellipsis-h settings-button cursor-pointer"></i>
+                            <div class="dropdown hidden absolute top-[430px] right-1 w-32 bg-white shadow-lg rounded-md z-20">
+                               @*  <a asp-action="AddPayment" asp-route-studentId="@student.StudentId" class="text-primary hover:underline">Add Payment</a> 
+                                <a asp-action="PaymentHistory" asp-route-studentId="@student.StudentId" class="text-primary hover:underline">Payment History</a> *@
+
+                                <a asp-action="AddPayment" asp-route-studentId="@student.StudentId" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">Add Payment</a>
+                                <a asp-action="PaymentHistory" asp-route-studentId="@student.StudentId" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">Payment History</a>
+                                <a asp-action="Edit" asp-route-studentId="@student.StudentId" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">Edit Student</a>
+
+
+                            </div>
                         </td>
                     </tr>
                 
@@ -126,6 +136,35 @@
 
     </nav>
     }
+
+
+
+    <script>
+          document.querySelectorAll('.settings-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const dropdown = button.nextElementSibling;
+            dropdown.classList.toggle('hidden');
+            event.stopPropagation();
+
+            // Close other open dropdowns
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    otherDropdown.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.add('hidden');
+        });
+    });
+    </script>
+   
+
 
 @* <form method="get" action="@Url.Action("GetStudents", "Student")">
     <div class="form-group">
