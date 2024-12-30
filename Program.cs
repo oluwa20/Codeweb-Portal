@@ -13,8 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SmsDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-/*builder.Services.AddDbContext<SmsDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Then-DefaultConnection")));*/
+builder.Services.AddDbContext<SmsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Then-DefaultConnection")));
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 // Register DinkToPdf converter
