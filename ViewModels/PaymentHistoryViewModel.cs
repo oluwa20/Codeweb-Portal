@@ -11,4 +11,15 @@ namespace SMS.ViewModels
         public DateTime? Date { get; set; }
         public Payment Payment { get; internal set; }
     }
+
+    public class EditPaymentViewModel
+    {
+        public Guid PaymentId { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public DateTime? Date { get; set; }
+        public Guid StudentId { get; set; }
+        public string StudentName { get; set; }
+    }
+
 }
